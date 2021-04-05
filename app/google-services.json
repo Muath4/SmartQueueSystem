@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1098561464094",
+    "firebase_url": "https://smartqueuesystem-438-default-rtdb.firebaseio.com",
+    "project_id": "smartqueuesystem-438",
+    "storage_bucket": "smartqueuesystem-438.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098561464094:android:f562022641359385508b0f",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098561464094-elv1i11l5ki9nrpquppgr6t0rbsudhug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBblIRf0ittwy3dxoPvZcc3wlTMd3ivlEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098561464094-elv1i11l5ki9nrpquppgr6t0rbsudhug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

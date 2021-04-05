@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">SQS</string>
+    <string name="smart_queue_system">Smart Queue System</string>
+    <string name="branchAdded">Branch added</string>
+    <string name="cannotAddBranch">Cannot add branch!</string>
+    <string name="pleaseFillAllFields">Please fill all fields!</string>
+    <string name="branchName">Branch Name</string>
+    <string name="branch_name">Branch name:</string>
+    <string name="numberOfQueue">Number of queues</string>
+    <string name="number_of_queues">Number of queues:</string>
+    <string name="logout">Logout</string>
+    <string name="add_branch">Add branch</string>
+    <string name="have_account">If you an account click here</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username">User name</string>
+    <string name="companyname">Company name</string>
+    <string name="sing_up">Sing up</string>
+    <string name="branch_details">Branch details</string>
+    <string name="add">ADD</string>
+    <string name="location">Location</string>
+    <string name="location_">Location:</string>
+    <string name="queue_name">Queue name:</string>
+    <string name="queueName">Queue name</string>
+    <string name="save_changes">Save changes</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_branch">Delete Branch</string>
+    <string name="login">Login</string>
+    <string name="password_">Password:</string>
+    <string name="email_">Email:</string>
+    <string name="forgot_my_password">Forgot my password</string>
+    <string name="customer">Customer</string>
+    <string name="company">Company</string>
+    <string name="branch_deleted">Branch deleted!</string>
+    <string name="changes_saved">Changes saved!</string>
+    <string name="branches">Branches</string>
+    <string name="area"> you are in the area</string>
+    <string name="book">Do you want to book ticket?</string>
+    <string name="registerd">Successfully Registered, Verification mail sent!</string>
+    <string name="remail">Please enter your registered email </string>
+    <string name="resetemail">Password reset email sent!</string>
+    <string name="erremail">Error in sending password reset email </string>
+    <string name="emailregester">Please enter your valid email and at least 6 entries for password </string>
+    <string name="emaillogin">Please enter your valid email and password </string>
+
+    <string name="edit_branch">Edit Branch</string>
+    <string name="just_moment">Just moment</string>
+    <string name="you_have_a_shop_join_us">You have a shop? Join us!</string>
+    <string name="email_not_verified">Your email is not verified!</string>
+    <string name="what_is_smart_queue_system">What is Smart Queue System?</string>
+    <string name="just_a_moment">Just a moment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="title_activity_customer_branch_list">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_ticket">Ticket</string>
+    <string name="title_setting">Settings</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="account_header">Account</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="sign_out_settings_KEY" translatable="false">sign_out_settings</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="first_queue_name">First queue name</string>
+    <string name="second_queue_name">Second queue name</string>
+    <string name="please_choose_branch_location">Please specify the location of the branch</string>
+    <string name="search">Search</string>
+    <string name="title_activity_maps11111" translatable="false">Map</string>
+    <string name="branch_admin_email">Branch Admin Email</string>
+    <string name="branch_admin_password">Branch Admin Password</string>
+    <string name="name">Name:</string>
+    <string name="phone">Phone No:</string>
+
+
+</resources>

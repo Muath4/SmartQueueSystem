@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackgroundColor"
+    tools:context=".activities.LoginPageActivity">
+
+
+    <LinearLayout
+        android:id="@+id/main_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/notificationBarColor">
+
+        <ImageView
+            android:id="@+id/logo_image"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/logo"
+            android:contentDescription="@string/app_name"
+            android:background="@color/mainBackgroundColor"/>
+
+        <TextView
+            android:id="@+id/app_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:text="@string/smart_queue_system"
+
+            />
+    </LinearLayout>
+
+
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="20dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/main_title_bar"
+    android:orientation="vertical">
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/LoginText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="@string/login"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="36sp"/>-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayout"
+        app:boxBackgroundColor="@color/mainBackgroundColor"
+        app:hintTextColor="@color/actionBarColor"
+        android:hint="@string/email"
+        android:autofillHints="@string/email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username_sign_in_customer_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white"
+            android:autofillHints="@string/email"
+            android:textSize="20sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayout"
+        app:boxBackgroundColor="@color/mainBackgroundColor"
+        app:hintTextColor="@color/actionBarColor"
+        app:passwordToggleEnabled="true"
+        android:hint="@string/password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_sign_in_customer_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/white"
+            android:inputType="textPassword"
+            android:textSize="20sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/reset_password_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:onClick="ResetPass"
+        android:text="@string/forgot_my_password"
+        android:textColor="#FFFFFF"
+        android:layout_marginVertical="5dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:textSize="14sp"
+        android:layout_margin="2pt"/>
+
+
+
+
+    <Button
+        android:id="@+id/login_button"
+        android:textSize="17sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textColor="#1FB4BD"
+        app:backgroundTint="#FFFFFF"
+        android:layout_gravity="center"/>
+
+
+
+
+
+</LinearLayout>
+
+    <Button
+        android:id="@+id/sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/sing_up"
+        android:textColor="#1FB4BD"
+        app:backgroundTint="#FFFFFF"
+        android:textSize="17sp"
+        android:layout_margin="5pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/What_is_sqs"/>
+
+    <TextView
+        android:id="@+id/What_is_sqs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/what_is_smart_queue_system"
+        android:textColor="@color/white"
+        android:background="@color/notificationBarColor"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/Admins"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:layout_margin="2pt"-->
+<!--        android:layout_marginVertical="5dp"-->
+<!--        android:onClick="Admins"-->
+<!--        android:paddingLeft="24dp"-->
+<!--        android:paddingRight="24dp"-->
+<!--        android:text="Admins"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:textSize="10sp"-->
+<!--        tools:layout_editor_absoluteX="5dp" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

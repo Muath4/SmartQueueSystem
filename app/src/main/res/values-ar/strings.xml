@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">SQS</string>
+    <string name="smart_queue_system">نظام الطابور الذكي</string>
+    <string name="branchAdded">تم إضافة الفرع</string>
+    <string name="cannotAddBranch">حدثت مشكلة!</string>
+    <string name="pleaseFillAllFields">توجد حقول فارغة!</string>
+    <string name="branchName">اسم الفرع:</string>
+    <string name="numberOfQueue">عدد الطوابير:</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="add_branch">اضافة فرع</string>
+    <string name="have_account">إذا كان لديك حساب اضغط هنا</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="sing_up">تسجيل</string>
+    <string name="companyname">اسم الشركة</string>
+    <string name="area"> انت داخل نطاق الفرع</string>
+    <string name="book">هل ترغب بحجز تذكرة؟</string>
+    <string name="registerd">تم التسجيل وارسال ايميل التحقق"</string>
+    <string name="remail">الرجاء ادخال البريد الالكتروني</string>
+    <string name="resetemail">تم ارسال البريد الالكتروني</string>
+    <string name="erremail">خطا في ادخال البريد الالكتروني </string>
+    <string name="emailregester">الرجاء ادخال بريد الكتروني صحيح وغير مسجل وكلمة مرور 6 خانات على الاقل </string>
+    <string name="emaillogin">الرجاء ادخال بريد الكتروني وكلمة مرور صحيحين </string>
+
+    <string name="branch_details">تفاصيل الفرع</string>
+    <string name="branch_name">اسم الفرع:</string>
+    <string name="number_of_queues">عدد الطوابير:</string>
+    <string name="add">إضافة</string>
+    <string name="location">الموقع</string>
+    <string name="location_">الموقع:</string>
+    <string name="queue_name">اسم الطابور:</string>
+    <string name="queueName">اسم الطابور</string>
+    <string name="save_changes">حفظ التغييرات</string>
+    <string name="cancel">إلغاء</string>
+    <string name="delete_branch">حذف الفرع</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="password_">كلمة المرور:</string>
+    <string name="email_">البريد الإلكتروني:</string>
+    <string name="forgot_my_password">نسيت كلمة المرور</string>
+    <string name="customer">عميل</string>
+    <string name="company">شركة</string>
+    <string name="branch_deleted">تم حذف الفرع!</string>
+    <string name="changes_saved">تم حفظ التغييرات!</string>
+    <string name="branches">الفروع</string>
+    <string name="edit_branch">تعديل الفرع</string>
+    <string name="just_moment">انتظر لحظة</string>
+    <string name="you_have_a_shop_join_us">أنت صاحب متجر؟ انضم معنا!</string>
+    <string name="email_not_verified">لم يتم تفعيل بريدك الإلكتروني!</string>
+    <string name="what_is_smart_queue_system">ما هو نظام الطابور الذكي؟</string>
+    <string name="just_a_moment">انتظر لحظة</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="title_activity_customer_branch_list">MainActivity</string>
+    <string name="title_home">الصفحة الرئيسية</string>
+    <string name="title_ticket">التذكرة</string>
+    <string name="title_setting">الإعدادات</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="account_header">الحساب</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="first_queue_name">First queue name</string>
+    <string name="second_queue_name">Second queue name</string>
+    <string name="please_choose_branch_location">حدد موقع الفرع</string>
+    <string name="search">Search</string>
+    <string name="branch_admin_email">Branch Admin Email</string>
+    <string name="branch_admin_password">Branch Admin Password</string>
+    <string name="name">Name:</string>
+    <string name="phone">Phone No:</string>
+
+
+</resources>

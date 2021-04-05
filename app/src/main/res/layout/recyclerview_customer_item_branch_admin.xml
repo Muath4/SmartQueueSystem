@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="2pt"
+    android:padding="1pt"
+    android:background="@color/mainBackgroundColor">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_customer_name_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/item_customer_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/name"
+            android:layout_marginHorizontal="2pt"
+            android:layout_marginVertical="1pt"
+            android:textColor="@color/white"/>
+
+
+
+        <TextView
+            android:id="@+id/item_customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="2pt"
+            android:layout_marginVertical="1pt"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_customer_phone_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_customer_name_item"
+        >
+
+        <TextView
+            android:id="@+id/item_customer_phone_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/phone"
+            android:layout_marginHorizontal="2pt"
+            android:layout_marginVertical="1pt"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/item_customer_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="2pt"
+            android:layout_marginVertical="1pt"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/call_button_manage_queue_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call"
+        android:layout_marginHorizontal="5dp"
+        android:paddingHorizontal="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_customer_phone_item"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:id="@+id/send_notification_button_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send notification"
+        android:layout_marginHorizontal="5dp"
+        android:paddingHorizontal="6dp"
+        app:layout_constraintStart_toEndOf="@id/call_button_manage_queue_item"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_customer_phone_item"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:id="@+id/remove_customer_button_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="remove"
+        android:layout_marginHorizontal="5dp"
+        android:paddingHorizontal="6dp"
+        android:backgroundTint="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_customer_phone_item"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

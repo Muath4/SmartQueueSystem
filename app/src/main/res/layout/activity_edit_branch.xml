@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.company.EditBranchActivity"
+    android:background="@color/mainBackgroundColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            app:boxBackgroundColor="@color/mainBackgroundColor"
+            app:hintTextColor="@color/actionBarColor"
+            android:hint="@string/branchName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/branchName_editBranch_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:textSize="20sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            app:boxBackgroundColor="@color/mainBackgroundColor"
+            app:hintTextColor="@color/actionBarColor"
+            android:hint="@string/branchName">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="@string/location_"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:layout_margin="5dp"
+                android:textSize="20sp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/location_editBranch_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/location"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:layout_margin="5dp"
+                android:textSize="20sp"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/numberOfQueue"
+            android:layout_gravity="center"
+            android:textSize="20sp"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group_queue_edit_branch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_button_one_queue_edit_branch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/_1"
+                android:layout_marginHorizontal="5dp"/>
+            <RadioButton
+                android:id="@+id/radio_button_two_queue_edit_branch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/_2"
+                android:layout_marginHorizontal="5dp"/>
+        </RadioGroup>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            app:boxBackgroundColor="@color/mainBackgroundColor"
+            app:hintTextColor="@color/actionBarColor"
+            android:hint="@string/first_queue_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/queue1_name_edit_branch_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:textSize="20sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/queue_two_name_layout_edit_branch"
+            style="@style/TextInputLayout"
+            app:boxBackgroundColor="@color/mainBackgroundColor"
+            app:hintTextColor="@color/actionBarColor"
+            android:hint="@string/second_queue_name"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/queue2_name_edit_branch_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:textSize="20sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/location_icon_edit_branch_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:background="@drawable/location_icon"/>
+
+
+
+
+
+    </LinearLayout>
+
+<!--    <TableLayout-->
+<!--        android:id="@+id/tableLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/branchName_editBranch_TextView"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="@string/branch_name" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <EditText&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/branchName_editBranch_EditText"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:ems="10"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:hint="@string/branchName"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:inputType="textPersonName" />&ndash;&gt;-->
+<!--        </TableRow>-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/location_editBranch_TextView"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="@string/location_" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <EditText&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/location_editBranch_EditText"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:ems="10"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:hint="@string/location"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:inputType="textPersonName" />&ndash;&gt;-->
+<!--        </TableRow>-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/queueNumber_editBranch_TextView"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="@string/number_of_queues" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <EditText&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/queueNumber_editBranch_EditText"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:ems="10"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:hint="@string/numberOfQueue"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:inputType="number"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:autofillHints="number" />&ndash;&gt;-->
+<!--        </TableRow>-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/queueName_editBranch_TextView"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="@string/queue_name" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <EditText&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/queue1_name_edit_branch_EditText"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="128dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:ems="10"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:hint="@string/queueName"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:inputType="textPersonName" />&ndash;&gt;-->
+
+
+<!--        </TableRow>-->
+<!--        <TableRow-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center">-->
+<!--&lt;!&ndash;            <ImageButton&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/location_icon_edit_branch_image"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="70dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="70dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:background="@drawable/location_icon"/>&ndash;&gt;-->
+<!--        </TableRow>-->
+
+<!--    </TableLayout>-->
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/save_editBranch_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3pt"
+            android:layout_gravity="center"
+            android:text="@string/save_changes"/>
+
+        <Button
+            android:id="@+id/cancel_editBranch_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3pt"
+            android:layout_gravity="center"
+            android:text="@string/cancel"/>
+
+    <Button
+        android:id="@+id/delete_editBranch_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/red"
+        android:text="@string/delete_branch"/>
+
+
+
+    <!--IMPORTANT-->
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/email"/>-->
+<!--    </com.google.android.material.tabs.TabLayout>-->
+
+</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/loadingPanel_editBranch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
