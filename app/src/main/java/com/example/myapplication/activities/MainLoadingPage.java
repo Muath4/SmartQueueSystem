@@ -19,6 +19,8 @@ public class MainLoadingPage extends AppCompatActivity {
     //final variables
     public final static String COMPANY = "Company";
     public final static String CUSTOMER = "Customer";
+    public final static String USER_NAME = "username";
+    public final static String PHONE_NUMBER = "phoneNumber";
     public final static String BRANCH = "Branch";
     public final static String BRANCH_ADMIN = "branchAdmin";
     public final static String BRANCH_ID = "branchID";
@@ -37,6 +39,7 @@ public class MainLoadingPage extends AppCompatActivity {
     public final static String CURRENT_QUEUE_NUMBER = "currentQueueNumber";
     public final static String CURRENT_BRANCH_ID = "currentBranchId";
     public final static String GET_NOTIFICATION = "notification";
+    public final static String ACTIVATED = "activated";
 
     public final static String LATITUDE = "latitude";
     public final static String LONGITUDE = "longitude";

@@ -68,6 +68,22 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            app:boxBackgroundColor="@color/mainBackgroundColor"
+            app:hintTextColor="@color/actionBarColor"
+            android:hint="@string/phoneNumber"
+            android:autofillHints="@string/username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_sign_in_customer_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textSize="20sp"
+                android:textColor="@color/white"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
 

@@ -25,10 +25,10 @@ import static com.example.myapplication.activities.MainLoadingPage.USER_TYPE;
 
 
 public class RegisterCustomerActivity extends AppCompatActivity {
-    private EditText userName, Pass, Email;
+    private EditText userName, Pass, Email,phoneTextView;
     private Button ButtonRegister;
     private FirebaseAuth firebaseAuth;
-    String email, name, password;
+    String email, name, password,phone;
 
 
 
@@ -50,6 +50,7 @@ public class RegisterCustomerActivity extends AppCompatActivity {
 
         ButtonRegister.setOnClickListener(view -> {
             name = userName.getText().toString();
+            phone = phoneTextView.getText().toString();
             password = Pass.getText().toString();
             email = Email.getText().toString();
             if (validate()) {
@@ -72,6 +73,7 @@ public class RegisterCustomerActivity extends AppCompatActivity {
 
     private void setupUIViews(){
         userName = findViewById(R.id.username_sign_in_customer_editText);
+        phoneTextView = findViewById(R.id.phone_sign_in_customer_editText);
         Pass = findViewById(R.id.password_sign_in_customer_editText);
         Email = findViewById(R.id.email_sign_in_customer_editText);
         ButtonRegister = findViewById(R.id.login_button);
@@ -112,7 +114,7 @@ public class RegisterCustomerActivity extends AppCompatActivity {
 
     private void sendUserData(){
         String currentUserId = firebaseAuth.getUid();
-        Customer customer = new Customer(currentUserId,name, email, 40);
+        Customer customer = new Customer(currentUserId,name, email, phone);
 
         customerRef.child(currentUserId).setValue(customer);
 //        userTypeCustomer.child(currentUserId).setValue(currentUserId);

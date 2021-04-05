@@ -2,8 +2,10 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.myapplication.activities.DeletedAccountPageActivity;
 import com.example.myapplication.activities.branch_manager.BranchAdminActivity;
 import com.example.myapplication.activities.company.CompanyBranchesActivity;
 import com.example.myapplication.activities.admin.Admin_Activity;
@@ -12,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_ADMIN;
 import static com.example.myapplication.activities.MainLoadingPage.PANEL;
 
@@ -64,7 +67,12 @@ public class UserMethods {
                     errorTimesFlag = 0;
                     if(task.getValue() != null) {
                         userTypeNumber = 0;
-                        moveToCorrectPage(activity);
+                        if(!String.valueOf(task.child(fAuth.getUid()).child(ACTIVATED).getValue()).equals("true")) {
+                            fAuth.signOut();
+                            activity.startActivity(new Intent(activity.getApplicationContext(), DeletedAccountPageActivity.class));
+                            activity.finish();
+                        }else
+                            moveToCorrectPage(activity);
                     }
                     else{
                         userTypeNumber++;

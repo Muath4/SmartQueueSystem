@@ -8,13 +8,14 @@ public class Customer {
     private String currentQueueId;
     private String currentQueueNumber;
     private String currentBranchId;
-    private int phoneNumber;
+    private String phoneNumber;
     private boolean notification;
+    private boolean activated;
 
     public Customer() {
     }
 
-    public Customer(String userId, String username, String email, int phoneNumber) {
+    public Customer(String userId, String username, String email, String phoneNumber) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -23,6 +24,7 @@ public class Customer {
         this.currentBranchId =null;
         this.currentQueueNumber = null;
         notification = false;
+        activated = true;
     }
 
     public String getUserId() {
@@ -49,11 +51,11 @@ public class Customer {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -87,5 +89,13 @@ public class Customer {
 
     public void setNotification(boolean notification) {
         this.notification = notification;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 }
