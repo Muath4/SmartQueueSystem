@@ -11,7 +11,7 @@ public class Company implements Serializable {
     private String company_name;
     private String email;
     private boolean isVerified = false;
-
+    private boolean activated;
 
     public Company() {
     }
@@ -20,6 +20,7 @@ public class Company implements Serializable {
         this.userId = userId;
         this.company_name = company_name;
         this.email = email;
+        activated = true;
     }
 
     public String getCompany_name() {
@@ -55,6 +56,13 @@ public class Company implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
 }

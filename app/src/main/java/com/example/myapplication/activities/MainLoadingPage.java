@@ -38,8 +38,9 @@ public class MainLoadingPage extends AppCompatActivity {
     public final static String CURRENT_QUEUE_ID = "currentQueueId";
     public final static String CURRENT_QUEUE_NUMBER = "currentQueueNumber";
     public final static String CURRENT_BRANCH_ID = "currentBranchId";
-    public final static String GET_NOTIFICATION = "notification";
+    public final static String NOTIFICATION = "notification";
     public final static String ACTIVATED = "activated";
+    public final static String EMAIL = "email";
 
     public final static String LATITUDE = "latitude";
     public final static String LONGITUDE = "longitude";

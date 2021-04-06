@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
-import static com.example.myapplication.activities.MainLoadingPage.GET_NOTIFICATION;
+import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE_NAME;
 
@@ -189,7 +188,7 @@ public class ManageQueueActivity extends AppCompatActivity {
     }
 
     private void sendNotification(String customerId) {
-        CustomerReference.child(customerId).child(GET_NOTIFICATION).setValue(true);
+        CustomerReference.child(customerId).child(NOTIFICATION).setValue(true);
     }
 
     private void removeCustomer(String customerId) {

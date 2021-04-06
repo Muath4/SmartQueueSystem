@@ -88,9 +88,11 @@
     <string name="customer_deleted">Customer deleted!</string>
     <string name="your_account_deleted">Your account was deleted!\nPlease contact help center for more information</string>
     <string name="Name">Name</string>
-    <string name="deleted_users_list">Deleted users list</string>
+    <string name="deactivated_users_list">Deleted users list</string>
     <string name="restore">Restore</string>
     <string name="remove">Remove</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="activate">Activate</string>
 
 
 </resources>

@@ -101,7 +101,7 @@
     android:id="@+id/restore_user"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/restore"
+    android:text="@string/activate"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
     <Button

@@ -64,7 +64,7 @@ import static com.example.myapplication.activities.MainLoadingPage.CURRENT_BRANC
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_ID;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
-import static com.example.myapplication.activities.MainLoadingPage.GET_NOTIFICATION;
+import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
 
 public class CustomerInterfaceActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
@@ -122,7 +122,7 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
                                                 Log.d("&^&^&","onChildAdded");
                                                 addGeofence(latLng, branch.getRadius());
                                             });
-                                } else if (snapshot.getKey().equals(GET_NOTIFICATION)) {
+                                } else if (snapshot.getKey().equals(NOTIFICATION)) {
                                     if(String.valueOf(snapshot.getValue()).equals("true"))
                                         sendNotification();
                                 }
@@ -195,7 +195,7 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
         mNotificationManager.notify(0, mBuilder.build());
 
 
-        reference.child(CUSTOMER).child(firebaseAuth.getUid()).child(GET_NOTIFICATION).removeValue();
+        reference.child(CUSTOMER).child(firebaseAuth.getUid()).child(NOTIFICATION).removeValue();
     }
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {

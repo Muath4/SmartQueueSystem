@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_alignParentEnd="true"
-                android:text="@string/deleted_users_list"
+                android:text="@string/deactivated_users_list"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

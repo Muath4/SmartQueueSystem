@@ -98,7 +98,15 @@
         </LinearLayout>
     </LinearLayout>
 
-
+    <Button
+        android:id="@+id/delete_customer_button_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deactivate"
+        android:backgroundTint="@color/red"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 

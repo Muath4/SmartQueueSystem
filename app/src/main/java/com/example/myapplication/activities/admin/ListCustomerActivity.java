@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activities.LoginPageActivity;
@@ -24,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 
@@ -33,7 +37,8 @@ public class ListCustomerActivity extends AppCompatActivity {
     private RelativeLayout progressBar;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private FirebaseRecyclerAdapter<Customer, BranchHolder> firebaseRecyclerAdapter;
-    Button deletedUserListButton;
+    private Button deletedUserListButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,12 +151,14 @@ public class ListCustomerActivity extends AppCompatActivity {
 
     public static class BranchHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView nameTextView,phoneTextView,emailTextView;
+        private Button delete;
 
         public BranchHolder(View itemView) {
             super(itemView);
             this.nameTextView = itemView.findViewById(R.id.customer_name_item_panel);
             this.phoneTextView = itemView.findViewById(R.id.customer_phone_item_panel);
             this.emailTextView=itemView.findViewById(R.id.customer_email_item_panel);
+            delete = itemView.findViewById(R.id.delete_customer_button_item);
         }
 
 
@@ -166,6 +173,11 @@ public class ListCustomerActivity extends AppCompatActivity {
             nameTextView.setText(name);
             phoneTextView.setText(phone);
             emailTextView.setText(email);
+            delete.setOnClickListener(t->{
+                Map<String, Object> update = new HashMap<>();
+                update.put(ACTIVATED,false);
+                FirebaseDatabase.getInstance().getReference().child(CUSTOMER).child(customer.getUserId()).updateChildren(update);
+            });
 
         }
     }

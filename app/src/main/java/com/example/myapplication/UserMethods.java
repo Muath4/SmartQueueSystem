@@ -48,7 +48,8 @@ public class UserMethods {
                 userType = PANEL;
                 break;
             default:
-                Toast.makeText(activity.getApplicationContext(), "ERROR_675", Toast.LENGTH_SHORT).show();
+                fAuth.signOut();
+                activity.startActivity(new Intent(activity.getApplicationContext(), DeletedAccountPageActivity.class));
                 activity.finish();
                 return;
         }

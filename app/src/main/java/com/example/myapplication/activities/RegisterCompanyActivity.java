@@ -100,7 +100,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
         String currentUserId = firebaseAuth.getUid();
         Company company = new Company(currentUserId,name, email);
 
-        companyRef.push().setValue(company);
+        companyRef.child(currentUserId).setValue(company);
 //        userTypeCompany.child(currentUserId).setValue(currentUserId);
 
 

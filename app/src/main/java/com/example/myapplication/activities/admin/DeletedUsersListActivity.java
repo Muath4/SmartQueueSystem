@@ -26,11 +26,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY_ID;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.Company_Control;
+import static com.example.myapplication.activities.MainLoadingPage.EMAIL;
+import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
 
 public class DeletedUsersListActivity extends AppCompatActivity {
 
@@ -150,12 +155,16 @@ public class DeletedUsersListActivity extends AppCompatActivity {
 
     public static class BranchHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView nameTextView,phoneTextView,emailTextView;
+        private Button restoreUser,deleteForever;
 
         public BranchHolder(View itemView) {
             super(itemView);
             this.nameTextView = itemView.findViewById(R.id.user_name_item_panel);
             this.phoneTextView = itemView.findViewById(R.id.user_phone_item_panel);
             this.emailTextView=itemView.findViewById(R.id.user_email_item_panel);
+            this.restoreUser=itemView.findViewById(R.id.restore_user);
+            this.deleteForever=itemView.findViewById(R.id.remove_user_delete_info_button_item);
+
         }
 
 
@@ -170,6 +179,13 @@ public class DeletedUsersListActivity extends AppCompatActivity {
             nameTextView.setText(name);
             phoneTextView.setText(phone);
             emailTextView.setText(email);
+            restoreUser.setOnClickListener(t->{
+                Map<String, Object> update = new HashMap<>();
+                update.put(ACTIVATED,true);
+                FirebaseDatabase.getInstance().getReference().child(CUSTOMER).child(customer.getUserId()).updateChildren(update);
+            });
+            deleteForever.setOnClickListener(t-> FirebaseDatabase.getInstance().getReference().child(CUSTOMER).child(customer.getUserId()).removeValue());
+
 
         }
     }

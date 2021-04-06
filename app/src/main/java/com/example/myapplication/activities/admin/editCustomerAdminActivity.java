@@ -66,13 +66,6 @@ public class editCustomerAdminActivity extends AppCompatActivity {
         });
         cancel = findViewById(R.id.cancel_changes_customer_edit_admin);
         cancel.setOnClickListener(t->finish());
-        delete = findViewById(R.id.delete_customer_admin);
-        delete.setOnClickListener(t->{
-            update.put(ACTIVATED,false);
-            customerReference.updateChildren(update);
-            Toast.makeText(getApplicationContext(),getString(R.string.customer_deleted),Toast.LENGTH_SHORT).show();
-            finish();
-        });
 
     }
 }
