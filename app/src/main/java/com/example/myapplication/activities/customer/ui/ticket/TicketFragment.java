@@ -39,13 +39,16 @@ import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
+import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
+import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_CANCELED;
+import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_COMPLETED;
 
 public class TicketFragment extends Fragment {
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference rootRef = firebaseDatabase.getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private View root;
+    private static View root;
     private TextView notHaveTicketView,ticketBranchName,TicketQueueName,numberBeforeYou;
     private ConstraintLayout ticketConstraintLayout;
     private TicketViewModel ticketViewModel;
@@ -74,6 +77,9 @@ public class TicketFragment extends Fragment {
         return root;
     }
 
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setViews() {
         notHaveTicketView = root.findViewById(R.id.do_have_ticket);
         ticketBranchName = root.findViewById(R.id.ticket_branch_name);
@@ -82,17 +88,43 @@ public class TicketFragment extends Fragment {
         contentLoadingProgressBar = root.findViewById(R.id.progress_bar_ticket);
         numberBeforeYou = root.findViewById(R.id.ticket_queue_number_in_queue);
         deleteTicket = root.findViewById(R.id.delete_ticket_customer);
-        deleteTicket.setOnClickListener(t->{
-            Map<String, Object> customerList = new HashMap<>();
-            customerList.put(customer.getUserId(),null);
-            rootRef.child(BRANCH).child(customer.getCurrentBranchId()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).updateChildren(customerList);
-            rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_ID).removeValue();
-            rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
-            rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_BRANCH_ID).removeValue();
-            getParentFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.nav_host_fragment,new TicketFragment())
-                    .commit();
+        deleteTicket.setOnClickListener(t-> ticketCanceled());
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void ticketCanceled() {
+        Map<String, Object> customerList = new HashMap<>();
+        customerList.put(customer.getUserId(),null);
+        rootRef.child(BRANCH).child(customer.getCurrentBranchId()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).updateChildren(customerList);
+        rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_ID).removeValue();
+        rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
+        rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_BRANCH_ID).removeValue();
+
+            /***********
+             * setTimesTicketCanceled();
+             *
+             */
+
+        setTicket();
+//        getParentFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.nav_host_fragment,new TicketFragment())
+//                .commit();
+    }
+
+    private void setTimesTicketCanceled() {
+        rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIMES_TICKET_CANCELED).get().addOnSuccessListener(t-> {
+            if(t.getValue()==null)
+                rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIMES_TICKET_CANCELED).setValue(0);
+            else
+                rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIMES_TICKET_CANCELED).setValue(t.getValue(Integer.TYPE) + 1);
+        });
+
+        rootRef.child(STATISTIC).child(TIMES_TICKET_CANCELED).get().addOnSuccessListener(t-> {
+            if(t.getValue()==null)
+                rootRef.child(STATISTIC).child(TIMES_TICKET_CANCELED).setValue(1);
+            else
+                rootRef.child(STATISTIC).child(TIMES_TICKET_CANCELED).setValue(t.getValue(Integer.TYPE) + 1);
         });
     }
 
@@ -113,6 +145,21 @@ public class TicketFragment extends Fragment {
                     contentLoadingProgressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+    public static void removeTicket(){
+        try{
+            TextView notHaveTicketView;
+            ContentLoadingProgressBar contentLoadingProgressBar;
+            ConstraintLayout ticketConstraintLayout;
+            notHaveTicketView = root.findViewById(R.id.do_have_ticket);
+            ticketConstraintLayout = root.findViewById(R.id.ticket_info_layout);
+            contentLoadingProgressBar = root.findViewById(R.id.progress_bar_ticket);
+
+            notHaveTicketView.setVisibility(View.VISIBLE);
+            ticketConstraintLayout.setVisibility(View.GONE);
+            contentLoadingProgressBar.setVisibility(View.GONE);
+        }catch (Exception ignored){}
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

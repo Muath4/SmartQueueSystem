@@ -98,6 +98,10 @@
     <string name="number_of_deactivated_accounts">Number of deactivated accounts:</string>
     <string name="company_name_">Company name:</string>
     <string name="number_of_branches_">Number of branches:</string>
+    <string name="this_branch_stopped">This branch has stopped!</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
+    <string name="reset">Reset</string>
 
 
 </resources>

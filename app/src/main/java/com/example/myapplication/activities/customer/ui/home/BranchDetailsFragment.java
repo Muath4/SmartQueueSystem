@@ -1,7 +1,6 @@
 package com.example.myapplication.activities.customer.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
@@ -17,8 +17,11 @@ import com.example.myapplication.activities.customer.ui.ticket.TicketFragment;
 import com.example.myapplication.objects.Branch;
 import com.example.myapplication.objects.Customer;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,11 +29,11 @@ import java.util.Map;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_BRANCH_ID;
-import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_ID;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
+import static com.example.myapplication.activities.MainLoadingPage.IS_QUEUE_RUN;
 import static com.example.myapplication.activities.MainLoadingPage.LAST_CUSTOMER_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE1;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE2;
@@ -150,59 +153,103 @@ public class BranchDetailsFragment extends Fragment {
     private void setQueueButtons() {
         queueOne = root.findViewById(R.id.queue_one_customer);
         queueTwo = root.findViewById(R.id.queue_two_customer);
-
+        queueOne.setEnabled(false);
+        queueTwo.setEnabled(false);
+        listerForQueueStatus();
+//        checkQueueStatus();
         queueOne.setOnClickListener(t-> addQueueToDatabase(QUEUE1));
 
         if(branch.getNumberOfQueues()==2)
             queueTwo.setOnClickListener(t-> addQueueToDatabase(QUEUE2));
 //        Log.d("****",String.valueOf(branch.getNumberOfQueues()));
     }
+
+    private void listerForQueueStatus() {
+        rootRef.child(BRANCH).child(branch.getBranchID()).child(QUEUE1).child(IS_QUEUE_RUN).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue()!=null)
+                    queueOne.setEnabled(snapshot.getValue(Boolean.TYPE));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        if(branch.getNumberOfQueues()==2)
+            rootRef.child(BRANCH).child(branch.getBranchID()).child(QUEUE2).child(IS_QUEUE_RUN).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.getValue()!=null)
+                        queueOne.setEnabled(snapshot.getValue(Boolean.TYPE));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+    }
+
+
     int lastCustomerNumber;
     String queueId = null;
     private void addQueueToDatabase(String queueNumber) {
-        if(queueNumber.equals(QUEUE1))
-            queueId = branch.getQueue1().getQueueID();
-        else
-            queueId = branch.getQueue2().getQueueID();
+        rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(IS_QUEUE_RUN).get()
+                .addOnSuccessListener(t0->{
+                    if(t0.getValue() == null)
+                        return;
+                    if(t0.getValue(Boolean.TYPE)){
+                        if(queueNumber.equals(QUEUE1))
+                            queueId = branch.getQueue1().getQueueID();
+                        else
+                            queueId = branch.getQueue2().getQueueID();
 
-        rootRef
-            .child(CUSTOMER)
-            .child(firebaseAuth.getUid())
-            .get()
-            .addOnSuccessListener(t-> {
-            if(t.getValue(Customer.class).getCurrentQueueId() == null)
-            {
+                        rootRef
+                                .child(CUSTOMER)
+                                .child(firebaseAuth.getUid())
+                                .get()
+                                .addOnSuccessListener(t-> {
+                                    if(t.getValue(Customer.class).getCurrentQueueId() == null)
+                                    {
 
-                rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).get()
-                        .addOnSuccessListener(tt->{
-                            if(tt.getValue() == null)
-                                lastCustomerNumber = 0;
-                            else
-                                lastCustomerNumber = tt.getValue(Integer.TYPE) + 1;
+                                        rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).get()
+                                                .addOnSuccessListener(tt->{
+                                                    if(tt.getValue() == null)
+                                                        lastCustomerNumber = 0;
+                                                    else
+                                                        lastCustomerNumber = tt.getValue(Integer.TYPE) + 1;
 
-                            rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).setValue(lastCustomerNumber);
+                                                    rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).setValue(lastCustomerNumber);
 
-                            Map<String, Object> map = new HashMap<>();
-                            map.put(firebaseAuth.getUid(), lastCustomerNumber);
-                            rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(map);
-                            t.getRef().child(CURRENT_QUEUE_ID).setValue(queueId);
-                            t.getRef().child(CURRENT_QUEUE_NUMBER).setValue(queueNumber);
-                            t.getRef().child(CURRENT_BRANCH_ID).setValue(branch.getBranchID());
+                                                    Map<String, Object> map = new HashMap<>();
+                                                    map.put(firebaseAuth.getUid(), lastCustomerNumber);
+                                                    rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(map);
+                                                    t.getRef().child(CURRENT_QUEUE_ID).setValue(queueId);
+                                                    t.getRef().child(CURRENT_QUEUE_NUMBER).setValue(queueNumber);
+                                                    t.getRef().child(CURRENT_BRANCH_ID).setValue(branch.getBranchID());
 
-                            Toast.makeText(getActivity(),"Added in queue",Toast.LENGTH_SHORT).show();
-                            goToTicketFragment();
-
-
-                        });
+                                                    Toast.makeText(getActivity(),"Added in queue",Toast.LENGTH_SHORT).show();
+                                                    goToTicketFragment();
 
 
-            }
-            else
-                {
-                Toast.makeText(getActivity(), "You are in a queue before!", Toast.LENGTH_SHORT).show();
-                goToTicketFragment();
-                }
-            });
+                                                });
+
+
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getActivity(), "You are in a queue before!", Toast.LENGTH_SHORT).show();
+                                        goToTicketFragment();
+                                    }
+                                });
+                    }
+                    else
+                        Toast.makeText(getActivity(),getString(R.string.this_branch_stopped),Toast.LENGTH_SHORT).show();
+                });
+
+
     }
 
     private void goToTicketFragment(){

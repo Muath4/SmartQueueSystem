@@ -1,20 +1,14 @@
 package com.example.myapplication.objects;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class Queue implements Serializable {
     private String QueueID;
     private String BranchID;
     private String QueueName;
-    private boolean QueueStatus;
+    private boolean isQueueRun;
     private int lastCustomerNumber;
     private Map<String, Object> customerListUpdates = new HashMap<>();
 // فيه ميثود جديدة اضفتها هي ResetQueue
@@ -32,6 +26,7 @@ public class Queue implements Serializable {
         BranchID = branchId;
         QueueName = queueName;
         lastCustomerNumber = 0;
+        isQueueRun = true;
     }
 
 
@@ -106,11 +101,11 @@ public class Queue implements Serializable {
         this.lastCustomerNumber = lastCustomerNumber;
     }
 
-    public boolean isQueueStatus() {
-        return QueueStatus;
+    public boolean isQueueRun() {
+        return isQueueRun;
     }
 
-    public void setQueueStatus(boolean queueStatus) {
-        QueueStatus = queueStatus;
+    public void setQueueRun(boolean queueRun) {
+        isQueueRun = queueRun;
     }
 }

@@ -11,6 +11,9 @@ public class Customer {
     private String phoneNumber;
     private boolean notification;
     private boolean activated;
+    private int timesTicketCanceled;
+    private int timesTicketCompleted;
+    private int timesCustomerOutRangeAfterBookTicket;
 
     public Customer() {
     }
@@ -25,6 +28,9 @@ public class Customer {
         this.currentQueueNumber = null;
         notification = false;
         activated = true;
+        timesTicketCanceled=0;
+        timesTicketCompleted=0;
+        timesCustomerOutRangeAfterBookTicket=0;
     }
 
     public String getUserId() {
@@ -97,5 +103,29 @@ public class Customer {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public int getTimesTicketCanceled() {
+        return timesTicketCanceled;
+    }
+
+    public void setTimesTicketCanceled(int timesTicketCanceled) {
+        this.timesTicketCanceled = timesTicketCanceled;
+    }
+
+    public int getTimesTicketCompleted() {
+        return timesTicketCompleted;
+    }
+
+    public void setTimesTicketCompleted(int timesTicketCompleted) {
+        this.timesTicketCompleted = timesTicketCompleted;
+    }
+
+    public int getTimesCustomerOutRangeAfterBookTicket() {
+        return timesCustomerOutRangeAfterBookTicket;
+    }
+
+    public void setTimesCustomerOutRangeAfterBookTicket(int timesCustomerOutRangeAfterBookTicket) {
+        this.timesCustomerOutRangeAfterBookTicket = timesCustomerOutRangeAfterBookTicket;
     }
 }

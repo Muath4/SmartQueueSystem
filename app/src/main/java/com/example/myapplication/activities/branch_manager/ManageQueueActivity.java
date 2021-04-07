@@ -1,6 +1,7 @@
 package com.example.myapplication.activities.branch_manager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +36,13 @@ import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
+import static com.example.myapplication.activities.MainLoadingPage.IS_QUEUE_RUN;
 import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE_NAME;
+import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
+import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_CANCELED;
+import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_COMPLETED;
 
 public class ManageQueueActivity extends AppCompatActivity {
 
@@ -49,8 +56,9 @@ public class ManageQueueActivity extends AppCompatActivity {
     private TextView numberInQueue;
     private String branchId;
     private String queueNumber,queueName;
-    Button callNext;
+    private Button callNext, statusQueueButton, resetQueueButton;
     private String firstCustomerId;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +70,89 @@ public class ManageQueueActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(queueName);
         setViews();
         loadingCustomerInQueue();
+
+//        BranchReference.child(branchId).child(queueNumber).child(IS_QUEUE_RUN).get()
+//                .addOnSuccessListener(t->{
+//                    if(t.getValue() == null)
+//                        return;
+//
+//                    boolean isQueueRun = t.getValue(Boolean.TYPE);
+//                    if(isQueueRun)
+//                        stopQueueButton.setText(R.string.stop);
+//                    else
+//                        stopQueueButton.setText(R.string.start);
+//                });
+
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setViews() {
         progressBar = findViewById(R.id.progress_bar_manage_queue);
         numberInQueue = findViewById(R.id.number_in_queue);
         callNext = findViewById(R.id.call_next);
+        statusQueueButton = findViewById(R.id.stop_queue);
+        resetQueueButton = findViewById(R.id.reset_queue);
         callNext.setOnClickListener(t-> callNextCustomer(firstCustomerId));
+        statusQueueButton.setOnClickListener(t->changeQueueState());
+        resetQueueButton.setOnClickListener(t->resetQueue());
+
+        //set button text
+        BranchReference.child(branchId).child(queueNumber).child(IS_QUEUE_RUN).get()
+                .addOnSuccessListener(t->{
+                    if(t.getValue() == null)
+                        return;
+                    boolean isQueueRun = t.getValue(Boolean.TYPE);
+                    if(isQueueRun)
+                        statusQueueButton.setText(R.string.stop);
+                    else
+                        statusQueueButton.setText(R.string.start);
+                });
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void resetQueue() {
+        BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).removeValue();
+        CustomerReference.orderByChild(CURRENT_BRANCH_ID).equalTo(branchId).get().addOnSuccessListener(t->{
+
+            setTimesTicketCanceled((int) t.getChildrenCount());
+           t.getChildren().forEach(t2->{
+               if(t2.getValue()==null)
+                   return;
+               CustomerReference.child(t2.getValue(Customer.class).getUserId()).child(CURRENT_BRANCH_ID).removeValue();
+               CustomerReference.child(t2.getValue(Customer.class).getUserId()).child(CURRENT_QUEUE_ID).removeValue();
+               CustomerReference.child(t2.getValue(Customer.class).getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
+           });
+        });
+
+    }
+
+    private void setTimesTicketCanceled(int childrenCount) {
+        Root.getReference().child(STATISTIC).child(TIMES_TICKET_CANCELED).get().addOnSuccessListener(t-> {
+            if(t.getValue()==null)
+                Root.getReference().child(STATISTIC).child(TIMES_TICKET_CANCELED).setValue(childrenCount);
+            else
+                Root.getReference().child(STATISTIC).child(TIMES_TICKET_CANCELED).setValue(t.getValue(Integer.TYPE) + childrenCount);
+        });
+    }
+
+    private void changeQueueState() {
+        BranchReference.child(branchId).child(queueNumber).child(IS_QUEUE_RUN).get()
+                .addOnSuccessListener(t->{
+                    if(t.getValue() == null)
+                        return;
+
+                    boolean isQueueRun = t.getValue(Boolean.TYPE); //true
+                    Log.d("^%$%", String.valueOf(isQueueRun));
+                    if(isQueueRun)
+                        statusQueueButton.setText(R.string.start);
+                    else
+                        statusQueueButton.setText(R.string.stop);
+                    BranchReference.child(branchId).child(queueNumber).child(IS_QUEUE_RUN).setValue(!isQueueRun);
+
+                });
+    }
+
+
 
 
     @Override
@@ -210,10 +293,33 @@ public class ManageQueueActivity extends AppCompatActivity {
         CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();
 
 
+
+        /**
+         * ///////////////////////////////////////ticketCompleted(customerId);
+         */
+
+
+
         Map<String, Object> customerList = new HashMap<>();
         customerList.put(customerId,null);
         BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(customerList);
 
+    }
+
+    private void ticketCompleted(String customerId){
+        CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).get().addOnSuccessListener(t-> {
+            if(t.getValue()==null)
+                CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).setValue(0);
+            else
+                CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).setValue(t.getValue(Integer.TYPE) + 1);
+        });
+
+        Root.getReference().child(STATISTIC).child(TIMES_TICKET_COMPLETED).get().addOnSuccessListener(t-> {
+            if(t.getValue()==null)
+                Root.getReference().child(STATISTIC).child(TIMES_TICKET_COMPLETED).setValue(0);
+            else
+                Root.getReference().child(STATISTIC).child(TIMES_TICKET_COMPLETED).setValue(t.getValue(Integer.TYPE) + 1);
+        });
     }
 
 

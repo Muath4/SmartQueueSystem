@@ -179,6 +179,7 @@ public class MapsFragment extends Fragment {
         } else {
             //Ask for permission
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FINE_LOCATION_ACCESS_REQUEST_CODE);
+            enableUserLocation();
         }
     }
 

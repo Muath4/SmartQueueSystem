@@ -33,6 +33,7 @@ import com.example.myapplication.activities.GeofenceHelper;
 import com.example.myapplication.activities.LoginPageActivity;
 import com.example.myapplication.activities.customer.ui.home.HomeFragment;
 import com.example.myapplication.activities.customer.ui.home.MapsFragment;
+import com.example.myapplication.activities.customer.ui.ticket.TicketFragment;
 import com.example.myapplication.objects.Branch;
 import com.example.myapplication.objects.Customer;
 import com.google.android.gms.location.Geofence;
@@ -65,6 +66,9 @@ import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
+import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
+import static com.example.myapplication.activities.MainLoadingPage.TIMES_CUSTOMER_OUT_RANGE;
+import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_CANCELED;
 
 public class CustomerInterfaceActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
@@ -141,7 +145,8 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
                             Log.d("*&&*","onChildRemoved "+snapshot);
                             if(snapshot.getKey().equals(CURRENT_BRANCH_ID)){
                                 MapsFragment.doHaveTicket = false;
-                                startActivity(getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                TicketFragment.removeTicket();
+//                                startActivity(getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                             }
 
                         }
@@ -288,6 +293,15 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
                                         reference.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
                                         reference.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_BRANCH_ID).removeValue();
                                         MapsFragment.doHaveTicket = false;
+
+
+                                        /**
+                                         *
+                                         * setOutRangeAfterBookTicket(customer.getUserId());
+                                         *
+                                         */
+
+
                                     });
 
 
@@ -297,6 +311,23 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
                     });
 
         }catch (Exception ignored){}
+    }
+
+    private static void setOutRangeAfterBookTicket(String userId) {
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child(CUSTOMER).child(userId).child(TIMES_CUSTOMER_OUT_RANGE).get().addOnSuccessListener(t-> {
+            if(t.getValue()==null)
+                rootRef.child(CUSTOMER).child(userId).child(TIMES_CUSTOMER_OUT_RANGE).setValue(0);
+            else
+                rootRef.child(CUSTOMER).child(userId).child(TIMES_CUSTOMER_OUT_RANGE).setValue(t.getValue(Integer.TYPE) + 1);
+        });
+
+        rootRef.child(STATISTIC).child(TIMES_CUSTOMER_OUT_RANGE).get().addOnSuccessListener(t-> {
+            if(t.getValue()==null)
+                rootRef.child(STATISTIC).child(TIMES_CUSTOMER_OUT_RANGE).setValue(1);
+            else
+                rootRef.child(STATISTIC).child(TIMES_CUSTOMER_OUT_RANGE).setValue(t.getValue(Integer.TYPE) + 1);
+        });
     }
 
     private void addGeofence(LatLng latLng, float radius) {

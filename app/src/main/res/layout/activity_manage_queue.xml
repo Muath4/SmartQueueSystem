@@ -41,7 +41,27 @@
         android:layout_margin="5dp"
         tools:listitem="@layout/recyclerview_customer_item_branch_admin"
         app:layout_constraintTop_toBottomOf="@id/call_next"
+        app:layout_constraintBottom_toTopOf="@id/stop_queue"
         tools:itemCount="12"/>
+
+    <Button
+        android:id="@+id/stop_queue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/reset_queue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        android:textSize="18sp"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progress_bar_manage_queue"

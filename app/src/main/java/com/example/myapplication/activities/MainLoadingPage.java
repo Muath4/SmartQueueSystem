@@ -43,7 +43,14 @@ public class MainLoadingPage extends AppCompatActivity {
     public final static String EMAIL = "email";
     public final static String NUMBER_OF_BRANCHES = "numberOfBranches";
     public final static String COMPANY_NAME = "company_name";
+    public final static String IS_QUEUE_RUN = "isQueueRun";
     public final static String LAST_CUSTOMER_NUMBER = "lastCustomerNumber";
+    public final static String STATISTIC = "statistic";
+    public final static String TIMES_TICKET_CANCELED = "timesTicketCanceled";
+    public final static String TIMES_TICKET_COMPLETED = "timesTicketCompleted";
+    public final static String TIMES_CUSTOMER_OUT_RANGE = "timesCustomerOutRangeAfterBookTicket";
+    public final static String TOTAL_NUMBER_OF_QUEUES = "totalNumberOfQueues";
+    public final static String AVERAGE_WAITING_TIME_OF_ALL_QUEUES = "averageWaitingTimeOfAllQueues";
 
     public final static String LATITUDE = "latitude";
     public final static String LONGITUDE = "longitude";
