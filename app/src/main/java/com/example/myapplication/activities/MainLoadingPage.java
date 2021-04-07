@@ -31,6 +31,7 @@ public class MainLoadingPage extends AppCompatActivity {
     public final static String CUSTOMER_ID_LIST = "customerListUpdates";
     public final static String USER_TYPE = "UserType";
     public final static String USER_ID = "userId";
+    public final static String QUEUE_ID = "queueID";
     public final static String BRANCH_CLASS = "branchClass";
     public final static String Company_Control = "companyClass";
     public final static String PANEL = "Panel";

@@ -39,6 +39,7 @@ import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_L
 import static com.example.myapplication.activities.MainLoadingPage.IS_QUEUE_RUN;
 import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE;
+import static com.example.myapplication.activities.MainLoadingPage.QUEUE_ID;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE_NAME;
 import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
 import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_CANCELED;
@@ -55,7 +56,7 @@ public class ManageQueueActivity extends AppCompatActivity {
     private ContentLoadingProgressBar progressBar;
     private TextView numberInQueue;
     private String branchId;
-    private String queueNumber,queueName;
+    private String queueNumber,queueName,queueId;
     private Button callNext, statusQueueButton, resetQueueButton;
     private String firstCustomerId;
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -69,19 +70,12 @@ public class ManageQueueActivity extends AppCompatActivity {
         queueNumber = getIntent().getExtras().getString(QUEUE);
         getSupportActionBar().setTitle(queueName);
         setViews();
-        loadingCustomerInQueue();
+        progressBar.setVisibility(View.VISIBLE);
+        BranchReference.child(branchId).child(queueNumber).child(QUEUE_ID).get().addOnSuccessListener(t->{
+            queueId = String.valueOf(t.getValue());
 
-//        BranchReference.child(branchId).child(queueNumber).child(IS_QUEUE_RUN).get()
-//                .addOnSuccessListener(t->{
-//                    if(t.getValue() == null)
-//                        return;
-//
-//                    boolean isQueueRun = t.getValue(Boolean.TYPE);
-//                    if(isQueueRun)
-//                        stopQueueButton.setText(R.string.stop);
-//                    else
-//                        stopQueueButton.setText(R.string.start);
-//                });
+            loadingCustomerInQueue();
+        });
 
     }
 
@@ -181,16 +175,15 @@ public class ManageQueueActivity extends AppCompatActivity {
 //            return;
 //        }
 
-        progressBar.setVisibility(View.VISIBLE);
+
 
 //        BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).get()
 //                .addOnSuccessListener(t-> t.getChildren().forEach(t2->Log.d("***",t2.getKey().toString())) );
-        Query query = CustomerReference.orderByChild(CURRENT_BRANCH_ID).equalTo(branchId);
+        Query query = CustomerReference.orderByChild(CURRENT_QUEUE_ID).equalTo(queueId);
 
 
         RecyclerView recyclerView = findViewById(R.id.customer_list_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         FirebaseRecyclerOptions<Customer> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Customer>()
@@ -243,8 +236,9 @@ public class ManageQueueActivity extends AppCompatActivity {
 
             }
         };
-        recyclerView.setAdapter(firebaseRecyclerAdapter);
 
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.startListening();
     }
 
 
@@ -294,9 +288,8 @@ public class ManageQueueActivity extends AppCompatActivity {
 
 
 
-        /**
-         * ///////////////////////////////////////ticketCompleted(customerId);
-         */
+
+          ticketCompleted(customerId);
 
 
 
@@ -309,14 +302,14 @@ public class ManageQueueActivity extends AppCompatActivity {
     private void ticketCompleted(String customerId){
         CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).get().addOnSuccessListener(t-> {
             if(t.getValue()==null)
-                CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).setValue(0);
+                CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).setValue(1);
             else
                 CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).setValue(t.getValue(Integer.TYPE) + 1);
         });
 
         Root.getReference().child(STATISTIC).child(TIMES_TICKET_COMPLETED).get().addOnSuccessListener(t-> {
             if(t.getValue()==null)
-                Root.getReference().child(STATISTIC).child(TIMES_TICKET_COMPLETED).setValue(0);
+                Root.getReference().child(STATISTIC).child(TIMES_TICKET_COMPLETED).setValue(1);
             else
                 Root.getReference().child(STATISTIC).child(TIMES_TICKET_COMPLETED).setValue(t.getValue(Integer.TYPE) + 1);
         });

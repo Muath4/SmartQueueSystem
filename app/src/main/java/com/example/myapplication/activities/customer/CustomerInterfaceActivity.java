@@ -295,11 +295,9 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
                                         MapsFragment.doHaveTicket = false;
 
 
-                                        /**
-                                         *
-                                         * setOutRangeAfterBookTicket(customer.getUserId());
-                                         *
-                                         */
+
+                                        setOutRangeAfterBookTicket(customer.getUserId());
+
 
 
                                     });
@@ -317,7 +315,7 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef.child(CUSTOMER).child(userId).child(TIMES_CUSTOMER_OUT_RANGE).get().addOnSuccessListener(t-> {
             if(t.getValue()==null)
-                rootRef.child(CUSTOMER).child(userId).child(TIMES_CUSTOMER_OUT_RANGE).setValue(0);
+                rootRef.child(CUSTOMER).child(userId).child(TIMES_CUSTOMER_OUT_RANGE).setValue(1);
             else
                 rootRef.child(CUSTOMER).child(userId).child(TIMES_CUSTOMER_OUT_RANGE).setValue(t.getValue(Integer.TYPE) + 1);
         });

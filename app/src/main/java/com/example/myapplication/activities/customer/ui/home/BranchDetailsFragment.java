@@ -1,6 +1,7 @@
 package com.example.myapplication.activities.customer.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -177,12 +178,13 @@ public class BranchDetailsFragment extends Fragment {
 
             }
         });
+
         if(branch.getNumberOfQueues()==2)
             rootRef.child(BRANCH).child(branch.getBranchID()).child(QUEUE2).child(IS_QUEUE_RUN).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.getValue()!=null)
-                        queueOne.setEnabled(snapshot.getValue(Boolean.TYPE));
+                        queueTwo.setEnabled(snapshot.getValue(Boolean.TYPE));
                 }
 
                 @Override

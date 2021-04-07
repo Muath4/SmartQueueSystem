@@ -100,10 +100,8 @@ public class TicketFragment extends Fragment {
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_BRANCH_ID).removeValue();
 
-            /***********
-             * setTimesTicketCanceled();
-             *
-             */
+        setTimesTicketCanceled();
+
 
         setTicket();
 //        getParentFragmentManager()
@@ -115,7 +113,7 @@ public class TicketFragment extends Fragment {
     private void setTimesTicketCanceled() {
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIMES_TICKET_CANCELED).get().addOnSuccessListener(t-> {
             if(t.getValue()==null)
-                rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIMES_TICKET_CANCELED).setValue(0);
+                rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIMES_TICKET_CANCELED).setValue(1);
             else
                 rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIMES_TICKET_CANCELED).setValue(t.getValue(Integer.TYPE) + 1);
         });

@@ -61,15 +61,15 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                 Log.d("&&&", String.valueOf("GEOFENCE_TRANSITION_DWELL"));
 
                 //  Toast.makeText(context, "GEOFENCE_TRANSITION_DWELL", Toast.LENGTH_SHORT).show();
-                notificationHelper.sendHighPriorityNotification("GEOFENCE_TRANSITION_DWELL", "", CustomerInterfaceActivity.class);
+//                notificationHelper.sendHighPriorityNotification("GEOFENCE_TRANSITION_DWELL", "", CustomerInterfaceActivity.class);
 //                goOutRange();
 //                outArea();
                 removeProgressBar();
                 break;
             case Geofence.GEOFENCE_TRANSITION_EXIT:
                 Log.d("&&&", String.valueOf("GEOFENCE_TRANSITION_EXIT"));
-                Toast.makeText(context, "you are out of the range!", Toast.LENGTH_SHORT).show();
-                notificationHelper.sendHighPriorityNotification("you are out of the range!", "", CustomerInterfaceActivity.class);
+//                Toast.makeText(context, "you are out of the range!", Toast.LENGTH_SHORT).show();
+//                notificationHelper.sendHighPriorityNotification("you are out of the range!", "", CustomerInterfaceActivity.class);
                 goOutRange();
                 outArea();
 
