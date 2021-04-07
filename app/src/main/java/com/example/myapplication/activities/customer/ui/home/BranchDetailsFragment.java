@@ -196,9 +196,6 @@ public class BranchDetailsFragment extends Fragment {
                         });
 
 
-
-
-
             }
             else
                 {

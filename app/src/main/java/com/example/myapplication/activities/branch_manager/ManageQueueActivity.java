@@ -209,6 +209,7 @@ public class ManageQueueActivity extends AppCompatActivity {
         CustomerReference.child(customerId).child(CURRENT_BRANCH_ID).removeValue();
         CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();
 
+
         Map<String, Object> customerList = new HashMap<>();
         customerList.put(customerId,null);
         BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(customerList);
