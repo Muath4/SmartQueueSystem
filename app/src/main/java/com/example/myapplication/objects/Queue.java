@@ -15,6 +15,7 @@ public class Queue implements Serializable {
     private String BranchID;
     private String QueueName;
     private boolean QueueStatus;
+    private int lastCustomerNumber;
     private Map<String, Object> customerListUpdates = new HashMap<>();
 // فيه ميثود جديدة اضفتها هي ResetQueue
     // الميثودات Edit and Delete ماراح نسويها الحين
@@ -30,6 +31,7 @@ public class Queue implements Serializable {
         QueueID = queueID;
         BranchID = branchId;
         QueueName = queueName;
+        lastCustomerNumber = 0;
     }
 
 
@@ -48,9 +50,6 @@ public class Queue implements Serializable {
     }
 
 
-    public boolean getQueueStatus() {
-        return QueueStatus;
-    }
 
     public void setQueueID(String queueID) {
         QueueID = queueID;
@@ -64,9 +63,6 @@ public class Queue implements Serializable {
         QueueName = queueName;
     }
 
-    public void setQueueStatus(boolean queueStatus) {
-        QueueStatus = queueStatus;
-    }
 
 //    public void add(Queue NewQueue){
 //        NewQueue.setQueueStatus(false);
@@ -100,4 +96,21 @@ public class Queue implements Serializable {
         this.customerListUpdates = customerListUpdates;
     }
 
+
+
+    public int getLastCustomerNumber() {
+        return lastCustomerNumber;
+    }
+
+    public void setLastCustomerNumber(int lastCustomerNumber) {
+        this.lastCustomerNumber = lastCustomerNumber;
+    }
+
+    public boolean isQueueStatus() {
+        return QueueStatus;
+    }
+
+    public void setQueueStatus(boolean queueStatus) {
+        QueueStatus = queueStatus;
+    }
 }

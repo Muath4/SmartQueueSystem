@@ -98,7 +98,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
 
     private void addUserDataToDatabase(){
         String currentUserId = firebaseAuth.getUid();
-        Company company = new Company(currentUserId,name, email);
+        Company company = new Company(currentUserId,name, email,0);
 
         companyRef.child(currentUserId).setValue(company);
 //        userTypeCompany.child(currentUserId).setValue(currentUserId);

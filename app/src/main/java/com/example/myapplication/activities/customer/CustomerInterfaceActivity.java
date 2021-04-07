@@ -119,18 +119,21 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
                                                 branch = t.getValue(Branch.class);
                                                 LatLng latLng = new LatLng(branch.getLatitude(), branch.getLongitude());
                                                 setLocation();
-                                                Log.d("&^&^&","onChildAdded");
                                                 addGeofence(latLng, branch.getRadius());
                                             });
-                                } else if (snapshot.getKey().equals(NOTIFICATION)) {
-                                    if(String.valueOf(snapshot.getValue()).equals("true"))
-                                        sendNotification();
                                 }
+
                         }
 
+                        @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             Log.d("*&&*","onChildChanged");
+                            if (snapshot.getKey().equals(NOTIFICATION)) {
+                                if(snapshot.getValue(Boolean.TYPE)) {
+                                    sendNotification();
+                                }
+                            }
                         }
 
                         @Override
@@ -159,17 +162,6 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void sendNotification() {
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "000")
-//                .setSmallIcon(R.drawable.logo)
-//                .setContentTitle("Smart queue System")
-//                .setContentText("Come to branch, its your turn!")
-//                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-//
-//// notificationId is a unique int for each notification that you must define
-//        notificationManager.notify(111, builder.build());
-
-
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {

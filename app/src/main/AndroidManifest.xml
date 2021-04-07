@@ -25,11 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.admin.DeletedUsersListActivity"></activity>
+        <activity android:name=".activities.admin.editCompanyAdminActivity"></activity>
+        <activity android:name=".activities.admin.DeactivatedUsersListActivity" />
         <activity android:name=".activities.DeletedAccountPageActivity" />
         <activity android:name=".activities.admin.editCustomerAdminActivity" />
-        <activity android:name=".activities.admin.ListCustomerActivity" />
-        <activity android:name=".activities.admin.ListCompanyActivity" />
+        <activity android:name=".activities.admin.UsersListActivity" />
         <activity android:name=".activities.branch_manager.ManageQueueActivity" />
         <activity android:name=".activities.branch_manager.BranchAdminActivity" />
         <!--

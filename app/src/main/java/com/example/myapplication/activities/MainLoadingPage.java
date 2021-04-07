@@ -41,6 +41,9 @@ public class MainLoadingPage extends AppCompatActivity {
     public final static String NOTIFICATION = "notification";
     public final static String ACTIVATED = "activated";
     public final static String EMAIL = "email";
+    public final static String NUMBER_OF_BRANCHES = "numberOfBranches";
+    public final static String COMPANY_NAME = "company_name";
+    public final static String LAST_CUSTOMER_NUMBER = "lastCustomerNumber";
 
     public final static String LATITUDE = "latitude";
     public final static String LONGITUDE = "longitude";

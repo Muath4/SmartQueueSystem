@@ -10,17 +10,19 @@ public class Company implements Serializable {
     private String userId;
     private String company_name;
     private String email;
+    private int numberOfBranches;
     private boolean isVerified = false;
     private boolean activated;
 
     public Company() {
     }
 
-    public Company(String userId, String company_name,  String email) {
+    public Company(String userId, String company_name,  String email,int numberOfBranches) {
         this.userId = userId;
         this.company_name = company_name;
         this.email = email;
         activated = true;
+        this.numberOfBranches = numberOfBranches;
     }
 
     public String getCompany_name() {
@@ -65,4 +67,11 @@ public class Company implements Serializable {
         this.activated = activated;
     }
 
+    public int getNumberOfBranches() {
+        return numberOfBranches;
+    }
+
+    public void setNumberOfBranches(int numberOfBranches) {
+        this.numberOfBranches = numberOfBranches;
+    }
 }

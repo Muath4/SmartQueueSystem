@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.objects.Branch;
+import com.example.myapplication.objects.Company;
 import com.example.myapplication.objects.Queue;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,8 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
+import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
 import static com.example.myapplication.activities.MainLoadingPage.LATITUDE;
 import static com.example.myapplication.activities.MainLoadingPage.LONGITUDE;
+import static com.example.myapplication.activities.MainLoadingPage.NUMBER_OF_BRANCHES;
 import static com.example.myapplication.activities.MainLoadingPage.RADIUS;
 
 public class EditBranchActivity extends AppCompatActivity {
@@ -98,6 +101,14 @@ public class EditBranchActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             branchReference.removeValue()
                     .addOnSuccessListener( t2 -> {
+                        Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).get().addOnSuccessListener(t3->{
+                            try {
+                                if(t3.getValue(Company.class) != null)
+                                    Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).child(NUMBER_OF_BRANCHES).setValue(t3.getValue(Company.class).getNumberOfBranches()-1);
+                            }catch (Exception ignored){}
+                            if(t3.getValue(Company.class) != null)
+                                Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).child(NUMBER_OF_BRANCHES).setValue(t3.getValue(Company.class).getNumberOfBranches()-1);
+                        });
                         Toast.makeText(getApplicationContext(),getString(R.string.branch_deleted),Toast.LENGTH_SHORT).show();
                         finish();
                     })

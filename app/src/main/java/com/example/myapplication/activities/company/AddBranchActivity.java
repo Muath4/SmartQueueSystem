@@ -17,6 +17,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.activities.MainLoadingPage;
 import com.example.myapplication.objects.Branch;
 import com.example.myapplication.objects.BranchAdmin;
+import com.example.myapplication.objects.Company;
 import com.example.myapplication.objects.Queue;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -29,8 +30,10 @@ import java.util.Objects;
 import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_ADMIN;
+import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
 import static com.example.myapplication.activities.MainLoadingPage.LATITUDE;
 import static com.example.myapplication.activities.MainLoadingPage.LONGITUDE;
+import static com.example.myapplication.activities.MainLoadingPage.NUMBER_OF_BRANCHES;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.RADIUS;
 import static com.example.myapplication.activities.MainLoadingPage.USER_ID;
@@ -98,12 +101,17 @@ public class AddBranchActivity extends AppCompatActivity {
                 .addOnSuccessListener(t2 -> {
 
                     BranchReference.child(branchId).setValue(branch)
-                            .addOnCompleteListener(task -> progressBar.setVisibility(View.GONE))
                             .addOnSuccessListener(task -> {
-                                BranchAdmin branchAdmin = new BranchAdmin(t2.getUser().getUid(),adminEmail.getText().toString(),branchId);
-                                Root.getReference().child(BRANCH_ADMIN).child(t2.getUser().getUid()).setValue(branchAdmin);
-                                Toast.makeText(getApplicationContext(), R.string.branchAdded, Toast.LENGTH_SHORT).show();
+                                BranchAdmin branchAdmin = new BranchAdmin(t2.getUser().getUid(),adminEmail.getText().toString(),branchId,currentUserId);
+                                Root.getReference().child(BRANCH_ADMIN).child(t2.getUser().getUid()).setValue(branchAdmin)/*.addOnCompleteListener(t->progressBar.setVisibility(View.GONE))*/;
+                                Root.getReference().child(COMPANY).child(currentUserId).get().addOnSuccessListener(t->{
+                                    try {
+                                        if(t.getValue(Company.class) != null)
+                                            Root.getReference().child(COMPANY).child(currentUserId).child(NUMBER_OF_BRANCHES).setValue(t.getValue(Company.class).getNumberOfBranches()+1);
 
+                                    }catch (Exception ignored){}
+                                });
+                                Toast.makeText(getApplicationContext(), R.string.branchAdded, Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(this, MainLoadingPage.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                 finish();
                             })

@@ -13,7 +13,7 @@
         android:textSize="17sp"
         android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/number_in_queue"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/number_in_queue"
@@ -21,6 +21,16 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:layout_margin="10dp"
+        app:layout_constraintStart_toEndOf="@id/number_in_queue_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/call_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call next"
+        android:textSize="18sp"
+        android:layout_margin="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/number_in_queue_text_view"/>
@@ -30,7 +40,7 @@
         android:layout_height="0dp"
         android:layout_margin="5dp"
         tools:listitem="@layout/recyclerview_customer_item_branch_admin"
-        app:layout_constraintTop_toBottomOf="@id/number_in_queue"
+        app:layout_constraintTop_toBottomOf="@id/call_next"
         tools:itemCount="12"/>
 
     <androidx.core.widget.ContentLoadingProgressBar

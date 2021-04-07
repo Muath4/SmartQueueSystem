@@ -4,13 +4,15 @@ public class BranchAdmin {
     private String userId;
     private String email;
     private String branchID;
+    private String companyID;
     private boolean activated;
 
-    public BranchAdmin(String userId, String email, String branchID) {
+    public BranchAdmin(String userId, String email, String branchID,String companyID) {
         this.userId = userId;
         this.email = email;
         this.branchID = branchID;
         activated = true;
+        this.companyID = companyID;
     }
 
     public BranchAdmin() {
@@ -45,5 +47,13 @@ public class BranchAdmin {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public String getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(String companyID) {
+        this.companyID = companyID;
     }
 }

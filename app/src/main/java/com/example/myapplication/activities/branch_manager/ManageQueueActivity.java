@@ -49,6 +49,8 @@ public class ManageQueueActivity extends AppCompatActivity {
     private TextView numberInQueue;
     private String branchId;
     private String queueNumber,queueName;
+    Button callNext;
+    private String firstCustomerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +61,14 @@ public class ManageQueueActivity extends AppCompatActivity {
         queueNumber = getIntent().getExtras().getString(QUEUE);
         getSupportActionBar().setTitle(queueName);
         setViews();
-        loadingBranches();
+        loadingCustomerInQueue();
     }
 
     private void setViews() {
         progressBar = findViewById(R.id.progress_bar_manage_queue);
         numberInQueue = findViewById(R.id.number_in_queue);
+        callNext = findViewById(R.id.call_next);
+        callNext.setOnClickListener(t-> callNextCustomer(firstCustomerId));
     }
 
 
@@ -88,7 +92,7 @@ public class ManageQueueActivity extends AppCompatActivity {
         }
     }
 
-    private void loadingBranches() {
+    private void loadingCustomerInQueue() {
 //        if(firebaseAuth.getCurrentUser() == null){
 //            startActivity(new Intent(this, LoginPageActivity.class));
 //            return;
@@ -102,7 +106,9 @@ public class ManageQueueActivity extends AppCompatActivity {
 
 
         RecyclerView recyclerView = findViewById(R.id.customer_list_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         FirebaseRecyclerOptions<Customer> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Customer>()
                 .setQuery(query, Customer.class)
@@ -145,8 +151,13 @@ public class ManageQueueActivity extends AppCompatActivity {
             public void onDataChanged() {
                 super.onDataChanged();
                 numberInQueue.setText(String.valueOf(getItemCount()));
-                if(getItemCount() == 0)
+                if(getItemCount() == 0) {
                     progressBar.setVisibility(View.GONE);
+                    firstCustomerId = null;
+                }
+                else
+                    firstCustomerId = getItem(getItemCount()-1).getUserId();
+
             }
         };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
@@ -158,14 +169,13 @@ public class ManageQueueActivity extends AppCompatActivity {
     public class CustomerDetailHolder extends RecyclerView.ViewHolder {
         private final TextView phone;
         private final TextView name;
-        private final Button call,remove,notification;
+        private final Button call,notification;
 
         public CustomerDetailHolder(View itemView) {
             super(itemView);
             phone = itemView.findViewById(R.id.item_customer_phone);
             name = itemView.findViewById(R.id.item_customer_name);
             call = itemView.findViewById(R.id.call_button_manage_queue_item);
-            remove = itemView.findViewById(R.id.remove_customer_button_item);
             notification = itemView.findViewById(R.id.send_notification_button_item);
         }
 
@@ -181,17 +191,20 @@ public class ManageQueueActivity extends AppCompatActivity {
                 callIntent.setData(Uri.parse("tel:"+customer.getPhoneNumber()));
                 startActivity(callIntent);
             });
-            remove.setOnClickListener(t->removeCustomer(customer.getUserId()));
+//            remove.setOnClickListener(t->callNextCustomer(customer.getUserId()));
             notification.setOnClickListener(t->sendNotification(customer.getUserId()));
 
         }
     }
 
     private void sendNotification(String customerId) {
+        CustomerReference.child(customerId).child(NOTIFICATION).setValue(false);
         CustomerReference.child(customerId).child(NOTIFICATION).setValue(true);
     }
 
-    private void removeCustomer(String customerId) {
+    private void callNextCustomer(String customerId) {
+        if(firstCustomerId == null)
+            return;
         CustomerReference.child(customerId).child(CURRENT_QUEUE_ID).removeValue();
         CustomerReference.child(customerId).child(CURRENT_BRANCH_ID).removeValue();
         CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();

@@ -127,7 +127,7 @@ public class TicketFragment extends Fragment {
 
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                            setNumberBeforeYou(branch);
+//                            setNumberBeforeYou(branch);
                         }
 
                         @Override
@@ -137,7 +137,8 @@ public class TicketFragment extends Fragment {
 
                         @Override
                         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                            setNumberBeforeYou(branch);
+                            if(!snapshot.getKey().equals(customer.getUserId()))
+                                setNumberBeforeYou(branch);
                         }
 
                         @Override
@@ -158,23 +159,43 @@ public class TicketFragment extends Fragment {
 
 
     }
+
+
     int beforeYou = 0;
+    int currentOrderNumber;
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setNumberBeforeYou(Branch branch) {
+        try {
+            rootRef.child(BRANCH).child(branch.getBranchID()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).get()
+                    .addOnSuccessListener(t->{
+                        beforeYou = 0;
+                        rootRef.child(BRANCH).child(branch.getBranchID()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).child(customer.getUserId()).get()
+                                .addOnSuccessListener(number-> {
+                                    if(number.getValue()!=null) {
+                                        currentOrderNumber = number.getValue(Integer.TYPE);
 
-        rootRef.child(BRANCH).child(branch.getBranchID()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).get()
-                .addOnSuccessListener(t->{
-                    beforeYou = (int) t.getChildrenCount() - 1;
+                                        t.getChildren().forEach(t2 -> {
+//                            Log.d("&&^^", String.valueOf(currentOrderNumber)+"   " +t2.getValue(Integer.TYPE));
+                                            if (t2.getValue(Integer.TYPE) < currentOrderNumber) {
 
-                    t.getChildren().forEach(t2->{
-                        if(t2.getKey().equals(customer.getUserId())) {
-                            numberBeforeYou.setText(String.valueOf(beforeYou));
-//                            Log.d("&*&^^","setNumberBeforeYou"+ t2.getKey());
-                        }
-                        else
-                            beforeYou--;
+                                                beforeYou++;
+                                                Log.d("&&^^", String.valueOf(beforeYou));
+                                            }
+//                        if(t2.getKey().equals(customer.getUserId())) {
+
+
+//                        }
+//                        else
+//                            beforeYou++;
+                                            numberBeforeYou.setText(String.valueOf(beforeYou));
+                                        });
+                                    }
+                                });
+
+
                     });
-                });
+        }catch (Exception ignored){}
+
 
     }
 

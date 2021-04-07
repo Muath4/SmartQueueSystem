@@ -14,6 +14,7 @@ public class Branch implements Serializable {
     private String companyID;
     private Queue queue1,queue2;///
     private String adminEmail;
+    private boolean activated;
 
     public Branch(){
 
@@ -30,6 +31,7 @@ public class Branch implements Serializable {
         this.queue1 = queue1;
         this.queue2 = queue2;
         this.adminEmail = adminEmail;
+        activated = true;
     }
 
     public String getCompanyID() {
@@ -116,5 +118,13 @@ public class Branch implements Serializable {
 
     public void setAdminEmail(String adminEmail) {
         this.adminEmail = adminEmail;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 }

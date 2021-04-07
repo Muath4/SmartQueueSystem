@@ -86,18 +86,8 @@
         android:text="Send notification"
         android:layout_marginHorizontal="5dp"
         android:paddingHorizontal="6dp"
-        app:layout_constraintStart_toEndOf="@id/call_button_manage_queue_item"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout_customer_phone_item"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-    <Button
-        android:id="@+id/remove_customer_button_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="remove"
-        android:layout_marginHorizontal="5dp"
-        android:paddingHorizontal="6dp"
-        android:backgroundTint="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout_customer_phone_item"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

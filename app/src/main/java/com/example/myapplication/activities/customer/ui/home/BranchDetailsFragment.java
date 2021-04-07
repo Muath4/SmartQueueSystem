@@ -31,6 +31,7 @@ import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
+import static com.example.myapplication.activities.MainLoadingPage.LAST_CUSTOMER_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE1;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE2;
 
@@ -156,7 +157,7 @@ public class BranchDetailsFragment extends Fragment {
             queueTwo.setOnClickListener(t-> addQueueToDatabase(QUEUE2));
 //        Log.d("****",String.valueOf(branch.getNumberOfQueues()));
     }
-
+    int lastCustomerNumber;
     String queueId = null;
     private void addQueueToDatabase(String queueNumber) {
         if(queueNumber.equals(QUEUE1))
@@ -171,15 +172,33 @@ public class BranchDetailsFragment extends Fragment {
             .addOnSuccessListener(t-> {
             if(t.getValue(Customer.class).getCurrentQueueId() == null)
             {
-                Map<String, Object> map = new HashMap<>();
-                map.put(firebaseAuth.getUid(), true);
-                rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(map);
-                t.getRef().child(CURRENT_QUEUE_ID).setValue(queueId);
-                t.getRef().child(CURRENT_QUEUE_NUMBER).setValue(queueNumber);
-                t.getRef().child(CURRENT_BRANCH_ID).setValue(branch.getBranchID());
 
-                Toast.makeText(getActivity(),"Added in queue",Toast.LENGTH_SHORT).show();
-                goToTicketFragment();
+                rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).get()
+                        .addOnSuccessListener(tt->{
+                            if(tt.getValue() == null)
+                                lastCustomerNumber = 0;
+                            else
+                                lastCustomerNumber = tt.getValue(Integer.TYPE) + 1;
+
+                            rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).setValue(lastCustomerNumber);
+
+                            Map<String, Object> map = new HashMap<>();
+                            map.put(firebaseAuth.getUid(), lastCustomerNumber);
+                            rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(map);
+                            t.getRef().child(CURRENT_QUEUE_ID).setValue(queueId);
+                            t.getRef().child(CURRENT_QUEUE_NUMBER).setValue(queueNumber);
+                            t.getRef().child(CURRENT_BRANCH_ID).setValue(branch.getBranchID());
+
+                            Toast.makeText(getActivity(),"Added in queue",Toast.LENGTH_SHORT).show();
+                            goToTicketFragment();
+
+
+                        });
+
+
+
+
+
             }
             else
                 {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackgroundColor"
+    tools:context=".activities.admin.editCustomerAdminActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            app:boxBackgroundColor="@color/mainBackgroundColor"
+            app:hintTextColor="@color/actionBarColor"
+            android:hint="@string/Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/company_name_edit_customer_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:textSize="20sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <!--<com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            app:boxBackgroundColor="@color/mainBackgroundColor"
+            app:hintTextColor="@color/actionBarColor"
+            app:passwordToggleEnabled="true"
+            android:hint="@string/branch_admin_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/branch_admin_password_add_branch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@color/white"
+                android:inputType="textPassword"
+                android:textSize="20sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>-->
+    </LinearLayout>
+    <Button
+        android:id="@+id/save_changes_company_edit_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_changes"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cancel_changes_company_edit_admin"/>
+    <Button
+        android:id="@+id/cancel_changes_company_edit_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

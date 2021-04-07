@@ -6,7 +6,7 @@
     android:layout_margin="2pt"
     android:padding="1pt"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/mainBackgroundColor">
+    android:background="@color/notificationBarColor">
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -17,11 +17,10 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/customer_name_item_panel_text_view"
+                android:id="@+id/itemBranchNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -33,7 +32,7 @@
 
 
             <TextView
-                android:id="@+id/customer_name_item_panel"
+                android:id="@+id/item_company_name_admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -46,36 +45,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
+            android:orientation="horizontal">
             <TextView
-                android:id="@+id/customer_phone_item_panel_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="@string/phone"
-                android:layout_marginHorizontal="2pt"
-                android:layout_marginVertical="1pt"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:id="@+id/customer_phone_item_panel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_marginHorizontal="2pt"
-                android:layout_marginVertical="1pt"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:id="@+id/customer_email_item_panel_text_view"
+                android:id="@+id/itemBranchEmailText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -87,7 +59,7 @@
 
 
             <TextView
-                android:id="@+id/customer_email_item_panel"
+                android:id="@+id/item_company_email_admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -96,21 +68,41 @@
                 android:textColor="@color/white"/>
 
         </LinearLayout>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/itemBranchQueueNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/number_of_branches_"
+                android:layout_marginHorizontal="2pt"
+                android:layout_marginVertical="1pt"
+                android:textColor="@color/white"/>
 
+            <TextView
+                android:id="@+id/item_company_number_of_branches_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginHorizontal="2pt"
+                android:layout_marginVertical="1pt"
+                android:textColor="@color/white"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
     <Button
-        android:id="@+id/delete_customer_button_item"
+        android:id="@+id/delete_company_button_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/deactivate"
+        android:text="@string/activate"
         android:layout_margin="10dp"
+        android:backgroundTint="@color/mainBackgroundColor"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
+import static com.example.myapplication.activities.MainLoadingPage.USER_TYPE;
 
 public class Admin_Activity extends AppCompatActivity {
 
@@ -40,8 +41,8 @@ public class Admin_Activity extends AppCompatActivity {
         numberCompanies = findViewById(R.id.number_of_companies);
         numberCustomers = findViewById(R.id.number_of_customers);
         setUsersNumbers();
-        manageCompany.setOnClickListener(t->startActivity(new Intent(this, ListCompanyActivity.class)));
-        manageCustomer.setOnClickListener(t->startActivity(new Intent(this, ListCustomerActivity.class)));
+        manageCompany.setOnClickListener(t->startActivity(new Intent(this, UsersListActivity.class).putExtra(USER_TYPE,COMPANY)));
+        manageCustomer.setOnClickListener(t->startActivity(new Intent(this, UsersListActivity.class).putExtra(USER_TYPE,CUSTOMER)));
         logout.setOnClickListener(t->{
             firebaseAuth.signOut();
             finish();

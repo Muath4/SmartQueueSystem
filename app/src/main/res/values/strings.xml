@@ -95,6 +95,9 @@
     <string name="remove">Remove</string>
     <string name="deactivate">Deactivate</string>
     <string name="activate">Activate</string>
+    <string name="number_of_deactivated_accounts">Number of deactivated accounts:</string>
+    <string name="company_name_">Company name:</string>
+    <string name="number_of_branches_">Number of branches:</string>
 
 
 </resources>

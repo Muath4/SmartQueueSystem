@@ -30,10 +30,13 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_NAME;
@@ -46,7 +49,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 
 //    FirebaseRecyclerAdapter<Branch, HomeViewModel.CustomerBranchHolder> firebaseRecyclerAdapter;
-
+    private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();;
 //    RecyclerView recyclerView;
     private HomeViewModel homeViewModel;
     private FirebaseRecyclerAdapter<Branch, CustomerBranchHolder> firebaseRecyclerAdapter;
@@ -95,7 +98,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         Query query;
         if (search == null)
-             query = rootRef.child(BRANCH);
+             query = rootRef.child(BRANCH).orderByChild(ACTIVATED).equalTo(true);
         else
             query = rootRef.child(BRANCH).orderByChild(BRANCH_NAME).startAt(search);
 
