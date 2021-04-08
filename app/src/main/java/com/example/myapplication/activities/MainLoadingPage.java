@@ -43,6 +43,7 @@ public class MainLoadingPage extends AppCompatActivity {
     public final static String ACTIVATED = "activated";
     public final static String EMAIL = "email";
     public final static String NUMBER_OF_BRANCHES = "numberOfBranches";
+    public final static String NUMBER_IN_QUEUE = "numberInQueue";
     public final static String COMPANY_NAME = "company_name";
     public final static String IS_QUEUE_RUN = "isQueueRun";
     public final static String LAST_CUSTOMER_NUMBER = "lastCustomerNumber";

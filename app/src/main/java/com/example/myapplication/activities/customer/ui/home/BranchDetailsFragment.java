@@ -1,7 +1,6 @@
 package com.example.myapplication.activities.customer.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +35,7 @@ import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
 import static com.example.myapplication.activities.MainLoadingPage.IS_QUEUE_RUN;
 import static com.example.myapplication.activities.MainLoadingPage.LAST_CUSTOMER_NUMBER;
+import static com.example.myapplication.activities.MainLoadingPage.NUMBER_IN_QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE1;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE2;
 
@@ -225,12 +225,14 @@ public class BranchDetailsFragment extends Fragment {
 
                                                     rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).setValue(lastCustomerNumber);
 
+
                                                     Map<String, Object> map = new HashMap<>();
-                                                    map.put(firebaseAuth.getUid(), lastCustomerNumber);
+                                                    map.put(String.valueOf(lastCustomerNumber),firebaseAuth.getUid());
                                                     rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(map);
                                                     t.getRef().child(CURRENT_QUEUE_ID).setValue(queueId);
                                                     t.getRef().child(CURRENT_QUEUE_NUMBER).setValue(queueNumber);
                                                     t.getRef().child(CURRENT_BRANCH_ID).setValue(branch.getBranchID());
+                                                    t.getRef().child(NUMBER_IN_QUEUE).setValue(String.valueOf(lastCustomerNumber));
 
                                                     Toast.makeText(getActivity(),"Added in queue",Toast.LENGTH_SHORT).show();
                                                     goToTicketFragment();

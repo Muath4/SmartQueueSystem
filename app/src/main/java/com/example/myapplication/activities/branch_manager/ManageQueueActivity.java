@@ -38,6 +38,7 @@ import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
 import static com.example.myapplication.activities.MainLoadingPage.IS_QUEUE_RUN;
 import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
+import static com.example.myapplication.activities.MainLoadingPage.NUMBER_IN_QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE_ID;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE_NAME;
@@ -51,7 +52,7 @@ public class ManageQueueActivity extends AppCompatActivity {
     private final DatabaseReference BranchReference = Root.getReference(BRANCH);
     private final DatabaseReference CustomerReference = Root.getReference(CUSTOMER);
 
-    private FirebaseRecyclerAdapter<Customer, CustomerDetailHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<String, CustomerDetailHolder> firebaseRecyclerAdapter;
 
     private ContentLoadingProgressBar progressBar;
     private TextView numberInQueue;
@@ -112,9 +113,11 @@ public class ManageQueueActivity extends AppCompatActivity {
            t.getChildren().forEach(t2->{
                if(t2.getValue()==null)
                    return;
-               CustomerReference.child(t2.getValue(Customer.class).getUserId()).child(CURRENT_BRANCH_ID).removeValue();
-               CustomerReference.child(t2.getValue(Customer.class).getUserId()).child(CURRENT_QUEUE_ID).removeValue();
-               CustomerReference.child(t2.getValue(Customer.class).getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
+               String customerId = t2.getValue(Customer.class).getUserId();
+               CustomerReference.child(customerId).child(CURRENT_BRANCH_ID).removeValue();
+               CustomerReference.child(customerId).child(CURRENT_QUEUE_ID).removeValue();
+               CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();
+               CustomerReference.child(customerId).child(NUMBER_IN_QUEUE).removeValue();
            });
         });
 
@@ -179,20 +182,22 @@ public class ManageQueueActivity extends AppCompatActivity {
 
 //        BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).get()
 //                .addOnSuccessListener(t-> t.getChildren().forEach(t2->Log.d("***",t2.getKey().toString())) );
-        Query query = CustomerReference.orderByChild(CURRENT_QUEUE_ID).equalTo(queueId);
+        Query query = BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST);
+
+//        BranchReference.child(branchId).child(queueNumber).get().addOnSuccessListener(t->Log.d("$#@%@",String.valueOf(t.getValue())));
 
 
         RecyclerView recyclerView = findViewById(R.id.customer_list_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        FirebaseRecyclerOptions<Customer> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Customer>()
-                .setQuery(query, Customer.class)
+        FirebaseRecyclerOptions<String> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<String>()
+                .setQuery(query, String.class)
                 .build();
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Customer, CustomerDetailHolder>(firebaseRecyclerOptions) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<String, CustomerDetailHolder>(firebaseRecyclerOptions) {
             @Override
-            protected void onBindViewHolder(@NonNull CustomerDetailHolder customerDetailHolder, int position, @NonNull Customer customer) {
+            protected void onBindViewHolder(@NonNull CustomerDetailHolder customerDetailHolder, int position, @NonNull String customer) {
                 customerDetailHolder.setCustomer(customer);
                 progressBar.setVisibility(View.GONE);
                 customerDetailHolder.itemView.setOnClickListener(t ->
@@ -213,7 +218,7 @@ public class ManageQueueActivity extends AppCompatActivity {
 
             @NonNull
             @Override
-            public Customer getItem(int position) {
+            public String getItem(int position) {
                 return super.getItem(position);
             }
 
@@ -231,8 +236,11 @@ public class ManageQueueActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     firstCustomerId = null;
                 }
-                else
-                    firstCustomerId = getItem(getItemCount()-1).getUserId();
+                else{
+                    firstCustomerId = getItem(0);
+                    Log.d("%$^$",firstCustomerId);
+                }
+
 
             }
         };
@@ -258,19 +266,24 @@ public class ManageQueueActivity extends AppCompatActivity {
 
 
 
-        public void setCustomer(Customer customer) {
+        public void setCustomer(String s) {
+            Log.d("##%#",s);
+            CustomerReference.child(s).get()
+                    .addOnSuccessListener(t->{
+                        Customer customer = t.getValue(Customer.class);
+
             String customerPhone = String.valueOf(customer.getPhoneNumber());
             String CustomerName = customer.getUsername();
             phone.setText(customerPhone);
             name.setText(String.valueOf(CustomerName));
-            call.setOnClickListener(t->{
+            call.setOnClickListener(t2->{
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:"+customer.getPhoneNumber()));
                 startActivity(callIntent);
             });
 //            remove.setOnClickListener(t->callNextCustomer(customer.getUserId()));
-            notification.setOnClickListener(t->sendNotification(customer.getUserId()));
-
+            notification.setOnClickListener(t3->sendNotification(customer.getUserId()));
+                    });
         }
     }
 
@@ -279,23 +292,31 @@ public class ManageQueueActivity extends AppCompatActivity {
         CustomerReference.child(customerId).child(NOTIFICATION).setValue(true);
     }
 
+    String customerNumberInQueue = null;
     private void callNextCustomer(String customerId) {
         if(firstCustomerId == null)
             return;
+
+
         CustomerReference.child(customerId).child(CURRENT_QUEUE_ID).removeValue();
         CustomerReference.child(customerId).child(CURRENT_BRANCH_ID).removeValue();
         CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();
+        CustomerReference.child(customerId).child(NUMBER_IN_QUEUE).get()
+        .addOnSuccessListener(t->{
+            customerNumberInQueue = String.valueOf(t.getValue());
+            t.getRef().removeValue();
+            Map<String, Object> customerList = new HashMap<>();
+            customerList.put(customerNumberInQueue,null);
+            BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(customerList);
+        });
 
 
 
 
-          ticketCompleted(customerId);
+        ticketCompleted(customerId);
 
 
 
-        Map<String, Object> customerList = new HashMap<>();
-        customerList.put(customerId,null);
-        BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(customerList);
 
     }
 

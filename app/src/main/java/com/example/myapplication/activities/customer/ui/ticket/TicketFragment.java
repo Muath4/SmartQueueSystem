@@ -40,9 +40,9 @@ import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
+import static com.example.myapplication.activities.MainLoadingPage.NUMBER_IN_QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
 import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_CANCELED;
-import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_COMPLETED;
 
 public class TicketFragment extends Fragment {
 
@@ -97,11 +97,12 @@ public class TicketFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void ticketCanceled() {
         Map<String, Object> customerList = new HashMap<>();
-        customerList.put(customer.getUserId(),null);
+        customerList.put(customer.getNumberInQueue(),null);
         rootRef.child(BRANCH).child(customer.getCurrentBranchId()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).updateChildren(customerList);
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_ID).removeValue();
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_BRANCH_ID).removeValue();
+        rootRef.child(CUSTOMER).child(customer.getUserId()).child(NUMBER_IN_QUEUE).removeValue();
 
         setTimesTicketCanceled();
 
@@ -185,7 +186,7 @@ public class TicketFragment extends Fragment {
 
                         @Override
                         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                            if(!snapshot.getKey().equals(customer.getUserId()))
+                            if(!snapshot.getValue().equals(customer.getUserId()))
                                 setNumberBeforeYou(branch);
                         }
 
@@ -214,17 +215,23 @@ public class TicketFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setNumberBeforeYou(Branch branch) {
         try {
+
             rootRef.child(BRANCH).child(branch.getBranchID()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).get()
                     .addOnSuccessListener(t->{
                         beforeYou = 0;
-                        rootRef.child(BRANCH).child(branch.getBranchID()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).child(customer.getUserId()).get()
+                        rootRef.child(BRANCH)
+                                .child(branch.getBranchID())
+                                .child(customer.getCurrentQueueNumber())
+                                .child(CUSTOMER_ID_LIST)
+                                .child(customer.getNumberInQueue())
+                                .get()
                                 .addOnSuccessListener(number-> {
                                     if(number.getValue()!=null) {
-                                        currentOrderNumber = number.getValue(Integer.TYPE);
+                                        currentOrderNumber = Integer.parseInt(number.getKey());
 
                                         t.getChildren().forEach(t2 -> {
 //                            Log.d("&&^^", String.valueOf(currentOrderNumber)+"   " +t2.getValue(Integer.TYPE));
-                                            if (t2.getValue(Integer.TYPE) < currentOrderNumber) {
+                                            if (Integer.parseInt(t2.getKey()) < currentOrderNumber) {
 
                                                 beforeYou++;
                                                 Log.d("&&^^", String.valueOf(beforeYou));
