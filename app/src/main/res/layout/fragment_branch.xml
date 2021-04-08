@@ -4,16 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.customer.ui.home.HomeFragment">
+    tools:context=".activities.customer.ui.home.CompanyFragment">
 
-
+    <TextView
+        android:id="@+id/no_branches_in_company"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/there_is_no_branches_in_this_company"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:gravity="center"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/branches_list_customer_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
-        tools:listitem="@layout/recyclerview_branch_item_customer"
+        tools:listitem="@layout/recyclerview_branch_item_company"
         tools:itemCount="12"/>
 
     <RelativeLayout

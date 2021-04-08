@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.customer.ui.home.HomeFragment;
+import com.example.myapplication.activities.customer.ui.home.CompanyFragment;
 import com.example.myapplication.objects.Branch;
 import com.example.myapplication.objects.Customer;
 import com.google.firebase.auth.FirebaseAuth;
@@ -266,7 +266,7 @@ public class TicketFragment extends Fragment {
                 {
                     getParentFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment,new HomeFragment())
+                            .replace(R.id.nav_host_fragment,new CompanyFragment())
                             .commit();
                     return true;
                 }

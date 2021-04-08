@@ -31,7 +31,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.activities.GeofenceBroadcastReceiver;
 import com.example.myapplication.activities.GeofenceHelper;
 import com.example.myapplication.activities.LoginPageActivity;
-import com.example.myapplication.activities.customer.ui.home.HomeFragment;
+import com.example.myapplication.activities.customer.ui.home.CompanyFragment;
 import com.example.myapplication.activities.customer.ui.home.MapsFragment;
 import com.example.myapplication.activities.customer.ui.ticket.TicketFragment;
 import com.example.myapplication.objects.Branch;
@@ -68,10 +68,9 @@ import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
 import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
 import static com.example.myapplication.activities.MainLoadingPage.TIMES_CUSTOMER_OUT_RANGE;
-import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_CANCELED;
 
 public class CustomerInterfaceActivity extends AppCompatActivity {
-    private HomeFragment homeFragment;
+    private CompanyFragment companyFragment;
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     private GoogleMap mMap;

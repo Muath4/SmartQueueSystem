@@ -275,7 +275,7 @@ public class BranchDetailsFragment extends Fragment {
                 {
                     getParentFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment,new HomeFragment())
+                            .replace(R.id.nav_host_fragment,new CompanyFragment())
                             .commit();
                     return true;
                 }

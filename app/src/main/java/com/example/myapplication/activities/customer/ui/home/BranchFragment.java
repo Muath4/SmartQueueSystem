@@ -1,14 +1,7 @@
 package com.example.myapplication.activities.customer.ui.home;
 
-import android.app.SearchManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -16,9 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,27 +25,24 @@ import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
-import static com.example.myapplication.activities.MainLoadingPage.BRANCH_NAME;
+import static com.example.myapplication.activities.MainLoadingPage.COMPANY_ID;
 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class BranchFragment extends Fragment{
 
     /*private GoogleMap mMap;
     PendingIntent pendingIntent;
     private int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;*/
 
 
-//    FirebaseRecyclerAdapter<Branch, HomeViewModel.CustomerBranchHolder> firebaseRecyclerAdapter;
+    //    FirebaseRecyclerAdapter<Branch, HomeViewModel.CustomerBranchHolder> firebaseRecyclerAdapter;
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();;
-//    RecyclerView recyclerView;
+    //    RecyclerView recyclerView;
     private HomeViewModel homeViewModel;
     private FirebaseRecyclerAdapter<Branch, CustomerBranchHolder> firebaseRecyclerAdapter;
     private View root;
+    private String companyId;
     RelativeLayout progressBar;
     RecyclerView recyclerView;
 
@@ -83,14 +71,17 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-         root = inflater.inflate(R.layout.fragment_home, container, false);
+        root = inflater.inflate(R.layout.fragment_branch, container, false);
 //        homeViewModel.setBranchRecyclerView(root,getParentFragmentManager());
-        setBranchRecyclerView(null);
+        Bundle bundle = getArguments();
+        if (bundle != null)
+            companyId = (String) bundle.getSerializable(COMPANY_ID);
+        setBranchRecyclerView();
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         return root;
     }
 
-    void setBranchRecyclerView(String search){
+    void setBranchRecyclerView(){
         progressBar = root.findViewById(R.id.progress_bar_branches_customer);
         recyclerView = root.findViewById(R.id.branches_list_customer_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
@@ -98,10 +89,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         Query query;
-        if (search == null)
-             query = rootRef.child(BRANCH).orderByChild(ACTIVATED).equalTo(true);
-        else
-            query = rootRef.child(BRANCH).orderByChild(BRANCH_NAME).startAt(search);
+
+            query = rootRef.child(BRANCH).orderByChild(COMPANY_ID).equalTo(companyId);
 
         FirebaseRecyclerOptions<Branch> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Branch>()
                 .setQuery(query, Branch.class)
@@ -109,7 +98,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Branch, CustomerBranchHolder>(firebaseRecyclerOptions) {
             @Override
             protected void onBindViewHolder(@NonNull CustomerBranchHolder customerBranchHolder, int position, @NonNull Branch branch) {
-                CustomerBranchHolder.setBranch(branch);
+                customerBranchHolder.setBranch(branch);
 
                 progressBar.setVisibility(View.GONE);
                 customerBranchHolder.itemView.setOnClickListener(t ->
@@ -136,7 +125,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             @NonNull
             @Override
             public CustomerBranchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_branch_item_customer, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_branch_item_company, parent, false);
                 return new CustomerBranchHolder(view);
             }
 
@@ -155,8 +144,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             @Override
             public void onDataChanged() {
                 super.onDataChanged();
-                if(getItemCount() == 0)
+                if(getItemCount() == 0) {
+                    root.findViewById(R.id.no_branches_in_company).setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
+                }else
+                    root.findViewById(R.id.no_branches_in_company).setVisibility(View.GONE);
             }
 
 
@@ -170,16 +162,16 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 
 
-    public static class CustomerBranchHolder extends RecyclerView.ViewHolder{
-        private static TextView branchID, branchNameTextView,location,companyID, numberOfQueuesTextView;
+    public class CustomerBranchHolder extends RecyclerView.ViewHolder{
+        private TextView branchID, branchNameTextView,location,companyID, numberOfQueuesTextView;
 
         public CustomerBranchHolder(View itemView) {
             super(itemView);
-            branchNameTextView = itemView.findViewById(R.id.item_branch_name_customer);
-            numberOfQueuesTextView = itemView.findViewById(R.id.short_description);
+            branchNameTextView = itemView.findViewById(R.id.itemBranchName);
+            numberOfQueuesTextView = itemView.findViewById(R.id.itemBranchQueueNumber);
         }
 
-        public static void setBranch(Branch branch) {
+        public void setBranch(Branch branch) {
             String branchName = branch.getBranchName();
             int branchQueueNumber = branch.getNumberOfQueues();
             branchNameTextView.setText(branchName);
@@ -188,31 +180,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.top_home_menu, menu);
 
-        final MenuItem searchItem = menu.findItem(R.id.home_search);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
-//        SearchManager searchManager =
-//                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-//        searchView.setSearchableInfo(
-//                searchManager.getSearchableInfo(getActivity().getComponentName()));
 
-        searchView.setOnQueryTextListener(this);
-    }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
 
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        setBranchRecyclerView(newText);
-        return true;
-    }
+
 
 
     /*public PendingIntent getPendingIntent() {
