@@ -3,6 +3,7 @@ package com.example.myapplication.activities.customer.ui.settings;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -17,7 +18,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
         Preference button = findPreference(getString(R.string.sign_out_settings_KEY));
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

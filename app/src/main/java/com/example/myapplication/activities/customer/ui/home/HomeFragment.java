@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -85,7 +86,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
          root = inflater.inflate(R.layout.fragment_home, container, false);
 //        homeViewModel.setBranchRecyclerView(root,getParentFragmentManager());
         setBranchRecyclerView(null);
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         return root;
     }
 

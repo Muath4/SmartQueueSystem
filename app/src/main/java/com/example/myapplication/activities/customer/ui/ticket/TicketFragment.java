@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
@@ -62,6 +63,8 @@ public class TicketFragment extends Fragment {
         ticketViewModel =
                 new ViewModelProvider(this).get(TicketViewModel.class);
         root = inflater.inflate(R.layout.fragment_ticket, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.title_ticket);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         setViews();
         setTicket();
         backButtonBehavior();

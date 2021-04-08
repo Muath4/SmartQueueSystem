@@ -17,6 +17,9 @@
         android:hint="@string/company"
         android:textColor="@color/white"
         android:textSize="30sp"
+        android:layout_marginVertical="25dp"
+        android:padding="5dp"
+        android:background="@color/black_transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,9 +32,10 @@
         android:layout_margin="8dp"
         android:padding="5dp"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/queue_two_customer"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
         android:id="@+id/queue_two_customer"
@@ -39,13 +43,10 @@
         android:minWidth="175dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:layout_marginBottom="88dp"
         android:padding="5dp"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/queue_one_customer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

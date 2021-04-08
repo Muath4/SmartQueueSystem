@@ -2,6 +2,7 @@ package com.example.myapplication.activities.customer.ui.home;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ContentLoadingProgressBar;
@@ -124,7 +125,9 @@ public class MapsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         //  String S = getActivity().getIntent().getExtras().getString("name");
         fragmentManager = getParentFragmentManager();
-        Log.d("ffff","Ww");
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         root = inflater.inflate(R.layout.fragment_maps, container, false);
         geofencingClient = LocationServices.getGeofencingClient(getActivity());
         geofenceHelper = new GeofenceHelper(getActivity());

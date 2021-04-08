@@ -8,6 +8,7 @@ public class Customer {
     private String currentQueueId;
     private String currentQueueNumber;
     private String currentBranchId;
+    private int numberInQueue;
     private String phoneNumber;
     private boolean notification;
     private boolean activated;
@@ -31,6 +32,7 @@ public class Customer {
         timesTicketCanceled=0;
         timesTicketCompleted=0;
         timesCustomerOutRangeAfterBookTicket=0;
+        numberInQueue=0;
     }
 
     public String getUserId() {
@@ -127,5 +129,13 @@ public class Customer {
 
     public void setTimesCustomerOutRangeAfterBookTicket(int timesCustomerOutRangeAfterBookTicket) {
         this.timesCustomerOutRangeAfterBookTicket = timesCustomerOutRangeAfterBookTicket;
+    }
+
+    public int getNumberInQueue() {
+        return numberInQueue;
+    }
+
+    public void setNumberInQueue(int numberInQueue) {
+        this.numberInQueue = numberInQueue;
     }
 }
