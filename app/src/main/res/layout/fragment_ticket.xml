@@ -63,7 +63,7 @@
             android:id="@+id/ticket_queue_number_in_queue_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your turn will be after: "
+            android:text="@string/turn"
             android:textSize="20sp"
             android:layout_margin="25dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +84,7 @@
             android:id="@+id/ticket_queue_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="person/s"
+            android:text="@string/person"
             android:textSize="20sp"
             android:layout_margin="15dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,13 +94,13 @@
             android:id="@+id/delete_ticket_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete this ticket"
+            android:text="@string/dele"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+//
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progress_bar_ticket"
         style="?android:attr/progressBarStyle"

@@ -107,7 +107,7 @@
             app:boxBackgroundColor="@color/mainBackgroundColor"
             app:hintTextColor="@color/actionBarColor"
             android:hint="@string/first_queue_name">
-
+//
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/queue_one_name"
                 android:layout_width="match_parent"

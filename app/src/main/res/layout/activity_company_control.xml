@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/browse"
-            android:text="Change logo"/>
+            android:text="@string/uploaslog"/>
         <Button
             android:id="@+id/button_addBranch"
             android:layout_width="140dp"

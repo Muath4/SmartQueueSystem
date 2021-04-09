@@ -52,7 +52,7 @@ import static com.example.myapplication.activities.MainLoadingPage.TIME_TICKET_B
  * create an instance of this fragment.
  */
 public class BranchDetailsFragment extends Fragment {
-
+//
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference rootRef = firebaseDatabase.getReference();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -262,7 +262,7 @@ public class BranchDetailsFragment extends Fragment {
                                                     t.getRef().child(TIME_TICKET_BOOKED).setValue(Calendar.getInstance().getTimeInMillis());
 
 
-                                                    Toast.makeText(getActivity(),"Added in queue",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getText(R.string.alb),Toast.LENGTH_SHORT).show();
                                                     goToTicketFragment();
 
 
