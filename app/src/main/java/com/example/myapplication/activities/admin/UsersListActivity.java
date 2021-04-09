@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
@@ -22,10 +26,14 @@ import com.example.myapplication.objects.Company;
 import com.example.myapplication.objects.Customer;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +43,7 @@ import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_ADMIN;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY_ID;
+import static com.example.myapplication.activities.MainLoadingPage.COMPANY_LOGO;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.USER_ID;
 import static com.example.myapplication.activities.MainLoadingPage.USER_TYPE;
@@ -49,14 +58,16 @@ public class UsersListActivity extends AppCompatActivity {
     private Button deactivatedUserListButton;
     private final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     private Query query;
+    private TextView numberOfDeletedUsers;
     private RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_customer);
         deactivatedUserListButton = findViewById(R.id.deleted_user_button);
-
+        numberOfDeletedUsers = findViewById(R.id.number_of_deleted_user);
         recyclerView = findViewById(R.id.users_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -130,7 +141,11 @@ public class UsersListActivity extends AppCompatActivity {
                 return super.getRef(position);
             }
 
-
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                numberOfDeletedUsers.setText(String.valueOf(getItemCount()));
+            }
         };
         recyclerView.setAdapter(firebaseCompanyRecyclerAdapter);
     }
@@ -176,6 +191,11 @@ public class UsersListActivity extends AppCompatActivity {
                 return super.getRef(position);
             }
 
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                numberOfDeletedUsers.setText(String.valueOf(getItemCount()));
+            }
         };
         recyclerView.setAdapter(firebaseCustomerRecyclerAdapter);
     }
@@ -212,16 +232,17 @@ public class UsersListActivity extends AppCompatActivity {
         }
     }
 
-    public static class CompanyHolder extends RecyclerView.ViewHolder{
+    public class CompanyHolder extends RecyclerView.ViewHolder{
         private TextView nameTextView,numberOfBranchesTextView,emailTextView;
         private Button delete;
-
+        private ImageView logo;
         public CompanyHolder(View itemView) {
             super(itemView);
             this.nameTextView = itemView.findViewById(R.id.item_company_name_admin);
             this.emailTextView=itemView.findViewById(R.id.item_company_email_admin);
             this.numberOfBranchesTextView=itemView.findViewById(R.id.item_company_number_of_branches_admin);
             delete = itemView.findViewById(R.id.delete_company_button_item);
+            logo = itemView.findViewById(R.id.logo_company_admin);
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
@@ -232,6 +253,7 @@ public class UsersListActivity extends AppCompatActivity {
             nameTextView.setText(name);
             emailTextView.setText(email);
             numberOfBranchesTextView.setText(String.valueOf(numberOfBranches));
+            loadLogo(company.getUserId());
             delete.setOnClickListener(t->{
                 Map<String, Object> update = new HashMap<>();
                 update.put(ACTIVATED,false);
@@ -242,6 +264,27 @@ public class UsersListActivity extends AppCompatActivity {
 
             });
 
+        }
+        private void loadLogo(String userId) {
+            Log.d("%&#%",userId);
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference().child(COMPANY_LOGO).child(COMPANY_ID).child(userId);
+//        StorageReference storageRef = storage.getReferenceFromUrl("gs://smartqueuesystem-438.appspot.com/companyLogo/companyID/lyhNwrgRPEPhPqbXpDX8fdut6pl1");
+
+            final long ONE_MEGABYTE = 1024 * 1024;
+            storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    logo.setImageBitmap(bmp);
+//                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)

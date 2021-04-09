@@ -83,12 +83,12 @@
     <string name="number_of_companies">Number of companies:</string>
     <string name="number_of_customers">Number of customers</string>
     <string name="manage_customers">Manage customers</string>
-    <string name="manage_company">Manage company</string>
+    <string name="manage_companies">Manage companies</string>
     <string name="delete">Delete</string>
     <string name="customer_deleted">Customer deleted!</string>
     <string name="your_account_deleted">Your account was deleted!\nPlease contact help center for more information</string>
     <string name="Name">Name</string>
-    <string name="deactivated_users_list">Deleted users list</string>
+    <string name="deactivated_users_list">Deactivated accounts list</string>
     <string name="restore">Restore</string>
     <string name="remove">Remove</string>
     <string name="deactivate">Deactivate</string>
@@ -98,6 +98,11 @@
     <string name="number_of_branches_">Number of branches:</string>
     <string name="number_of_branches">Number of branches:</string>
     <string name="there_is_no_branches_in_this_company">There is no branches in this company!</string>
+    <string name="statistics">Statistics</string>
+    <string name="cancel_ticket_">Cancel ticket:</string>
+    <string name="out_range_the_branch">Out range the branch:</string>
+    <string name="ticket_complete">Ticket complete:</string>
+    <string name="number_of_activated_accounts">Number of activated accounts:</string>
 
 
 </resources>
