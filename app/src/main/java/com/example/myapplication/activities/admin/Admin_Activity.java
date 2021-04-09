@@ -24,7 +24,7 @@ import static com.example.myapplication.activities.MainLoadingPage.USER_TYPE;
 
 public class Admin_Activity extends AppCompatActivity {
 
-    private Button manageCompany,manageCustomer,logout;
+    private Button manageCompany,manageCustomer,logout,statistic;
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 //    TextView numberCompanies,numberCustomers;
     FirebaseDatabase Root = FirebaseDatabase.getInstance();
@@ -38,6 +38,8 @@ public class Admin_Activity extends AppCompatActivity {
         manageCompany = findViewById(R.id.manage_company_button);
         manageCustomer = findViewById(R.id.manage_customer_button);
         logout = findViewById(R.id.log_out_button_admin);
+        statistic = findViewById(R.id.statistic_button);
+        statistic.setOnClickListener(t->startActivity(new Intent(this,StatisticActivity.class)));
 //        numberCompanies = findViewById(R.id.number_of_companies);
 //        numberCustomers = findViewById(R.id.number_of_customers);
 //        setUsersNumbers();
