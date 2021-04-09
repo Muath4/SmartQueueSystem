@@ -6,10 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
-    import com.example.myapplication.activities.customer.ui.home.BranchDetailsFragment;
-    import com.example.myapplication.activities.customer.ui.home.HomeFragment;
-    import com.example.myapplication.activities.customer.ui.home.MapsFragment;
-
 
 // ALERT DIALOG
 // Sources : http://techblogon.com/alert-dialog-with-edittext-in-android-example-with-source-code/

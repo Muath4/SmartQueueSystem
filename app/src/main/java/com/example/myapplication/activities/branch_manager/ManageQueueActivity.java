@@ -133,13 +133,17 @@ public class ManageQueueActivity extends AppCompatActivity {
     }
 
     private void changeQueueState() {
+        Log.d("^%$%", String.valueOf("changeQueueState"));
         BranchReference.child(branchId).child(queueNumber).child(IS_QUEUE_RUN).get()
                 .addOnSuccessListener(t->{
-                    if(t.getValue() == null)
+                    if(t.getValue() == null) {
+                        BranchReference.child(branchId).child(queueNumber).child(IS_QUEUE_RUN).setValue(true);
+                        statusQueueButton.setText(R.string.stop);
                         return;
+                    }
 
                     boolean isQueueRun = t.getValue(Boolean.TYPE); //true
-                    Log.d("^%$%", String.valueOf(isQueueRun));
+
                     if(isQueueRun)
                         statusQueueButton.setText(R.string.start);
                     else

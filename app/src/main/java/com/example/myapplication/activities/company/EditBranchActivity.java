@@ -97,24 +97,7 @@ public class EditBranchActivity extends AppCompatActivity {
         });
 
         deleteButton = findViewById(R.id.delete_editBranch_Button);
-        deleteButton.setOnClickListener(t -> {
-            progressBar.setVisibility(View.VISIBLE);
-            branchReference.removeValue()
-                    .addOnSuccessListener( t2 -> {
-                        Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).get().addOnSuccessListener(t3->{
-                            try {
-                                if(t3.getValue(Company.class) != null)
-                                    Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).child(NUMBER_OF_BRANCHES).setValue(t3.getValue(Company.class).getNumberOfBranches()-1);
-                            }catch (Exception ignored){}
-                            if(t3.getValue(Company.class) != null)
-                                Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).child(NUMBER_OF_BRANCHES).setValue(t3.getValue(Company.class).getNumberOfBranches()-1);
-                        });
-                        Toast.makeText(getApplicationContext(),getString(R.string.branch_deleted),Toast.LENGTH_SHORT).show();
-                        finish();
-                    })
-                    .addOnCompleteListener(t2 -> progressBar.setVisibility(View.GONE))
-                    .addOnFailureListener(t2 -> Toast.makeText(getApplicationContext(),t2.getMessage(),Toast.LENGTH_SHORT).show());
-        });
+        deleteButton.setOnClickListener(t -> setDeleteBranchButton());
 
         locationIcon = findViewById(R.id.location_icon_edit_branch_image);
         locationIcon.setOnClickListener(t -> {
@@ -129,7 +112,7 @@ public class EditBranchActivity extends AppCompatActivity {
 
         branchFromIntent = (Branch) getIntent().getSerializableExtra(BRANCH_CLASS);
         branchName.setText(branchFromIntent.getBranchName());
-        branchLocation.setText(String.valueOf(branchFromIntent.getLatitude())); /////// should change this after ********
+//        branchLocation.setText(String.valueOf(branchFromIntent.getLatitude())); /////// should change this after ********
         queue1name.setText(branchFromIntent.getQueue1().getQueueName());
         if(branchFromIntent.getNumberOfQueues() == 1)
             radioGroupQueue.check(R.id.radio_button_one_queue_edit_branch);
@@ -149,6 +132,25 @@ public class EditBranchActivity extends AppCompatActivity {
             }
         });
         branchReference = Root.getReferenceFromUrl(getIntent().getExtras().getString(BRANCH));
+    }
+
+    private void setDeleteBranchButton() {
+        progressBar.setVisibility(View.VISIBLE);
+        branchReference.removeValue()
+                .addOnSuccessListener( t2 -> {
+                    Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).get().addOnSuccessListener(t3->{
+                        try {
+                            if(t3.getValue(Company.class) != null)
+                                Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).child(NUMBER_OF_BRANCHES).setValue(t3.getValue(Company.class).getNumberOfBranches()-1);
+                        }catch (Exception ignored){}
+//                            if(t3.getValue(Company.class) != null)
+//                                Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).child(NUMBER_OF_BRANCHES).setValue(t3.getValue(Company.class).getNumberOfBranches()-1);
+                    });
+                    Toast.makeText(getApplicationContext(),getString(R.string.branch_deleted),Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnCompleteListener(t2 -> progressBar.setVisibility(View.GONE))
+                .addOnFailureListener(t2 -> Toast.makeText(getApplicationContext(),t2.getMessage(),Toast.LENGTH_SHORT).show());
     }
 
 

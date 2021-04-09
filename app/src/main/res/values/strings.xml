@@ -102,6 +102,10 @@
     <string name="stop">Stop</string>
     <string name="start">Start</string>
     <string name="reset">Reset</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="number_of_branches">Number of branches:</string>
+    <string name="there_is_no_branches_in_this_company">There is no branches in this company!</string>
 
 
 </resources>
