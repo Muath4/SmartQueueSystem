@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:hint="@string/company"
+        android:hint="@string/branchName"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:layout_marginVertical="25dp"
@@ -23,6 +23,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+<LinearLayout
+    android:id="@+id/layout_queue1_queue_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:gravity="center"
+    android:layout_marginVertical="15dp"
+    android:background="@color/notificationBarColor"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/queue_one_customer"
@@ -32,21 +42,70 @@
         android:layout_margin="8dp"
         android:padding="5dp"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:backgroundTint="@color/mainBackgroundColor" />
 
-    <Button
-        android:id="@+id/queue_two_customer"
-        android:layout_width="wrap_content"
-        android:minWidth="175dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:padding="5dp"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/queue_one_customer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"/>
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19sp"
+            android:text="@string/average_waiting_time"
+            android:layout_marginEnd="8dp"/>
+        <TextView
+            android:id="@+id/waiting_time_queue1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19sp"
+            android:layout_marginEnd="5dp"/>
+    </LinearLayout>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_queue2_queue_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layout_queue1_queue_details"
+        android:gravity="center"
+        android:layout_marginVertical="15dp"
+        android:background="@color/notificationBarColor"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/queue_two_customer"
+            android:layout_width="wrap_content"
+            android:minWidth="175dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="5dp"
+            android:textSize="20sp"
+            android:backgroundTint="@color/mainBackgroundColor"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:text="@string/average_waiting_time"
+                android:layout_marginEnd="8dp"/>
+            <TextView
+                android:id="@+id/waiting_time_queue2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:layout_marginEnd="5dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

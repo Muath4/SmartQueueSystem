@@ -103,6 +103,11 @@
     <string name="out_range_the_branch">Out range the branch:</string>
     <string name="ticket_complete">Ticket complete:</string>
     <string name="number_of_activated_accounts">Number of activated accounts:</string>
+    <string name="average_waiting_time">Average waiting time:</string>
+    <string name="no_info">No info</string>
+    <string name="general_statistics">General Statistics</string>
+    <string name="average_waiting_of_all_queues">Average waiting of all queues:</string>
+    <string name="send">Send</string>
 
 
 </resources>

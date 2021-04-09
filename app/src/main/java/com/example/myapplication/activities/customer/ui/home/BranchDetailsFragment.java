@@ -1,11 +1,13 @@
 package com.example.myapplication.activities.customer.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +25,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
@@ -38,6 +44,7 @@ import static com.example.myapplication.activities.MainLoadingPage.LAST_CUSTOMER
 import static com.example.myapplication.activities.MainLoadingPage.NUMBER_IN_QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE1;
 import static com.example.myapplication.activities.MainLoadingPage.QUEUE2;
+import static com.example.myapplication.activities.MainLoadingPage.TIME_TICKET_BOOKED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +60,8 @@ public class BranchDetailsFragment extends Fragment {
     Button queueTwo;
     View root;
     Branch branch;
+    LinearLayout queue2Layout;
+    TextView waitingTimeQueue1,waitingTimeQueue2;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -127,18 +136,35 @@ public class BranchDetailsFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         branch = (Branch) bundle.getSerializable(BRANCH_CLASS);
-
+        queue2Layout = root.findViewById(R.id.layout_queue2_queue_details);
+        waitingTimeQueue1 = root.findViewById(R.id.waiting_time_queue1);
+        waitingTimeQueue2 = root.findViewById(R.id.waiting_time_queue2);
         TextView branchName = root.findViewById(R.id.branch_name_customer_detail);
 
         setQueueButtons();
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("H:mm:ss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
 
         branchName.setText(branch.getBranchName());
+
         queueOne.setText(branch.getQueue1().getQueueName());
+        if(branch.getQueue1().getAverageWaitingTime() == 0)
+            waitingTimeQueue1.setText(getString(R.string.no_info));
+        else {
+            Date date1 = new Date(branch.getQueue1().getAverageWaitingTime());
+            waitingTimeQueue1.setText(dateFormat.format(date1));
+        }
         if(branch.getNumberOfQueues()==2) {
-            queueTwo.setVisibility(View.VISIBLE);
+            queue2Layout.setVisibility(View.VISIBLE);
             queueTwo.setText(branch.getQueue2().getQueueName());
+            if(branch.getQueue2().getAverageWaitingTime() == 0)
+                waitingTimeQueue2.setText(getString(R.string.no_info));
+            else {
+                Date date2 = new Date(branch.getQueue2().getAverageWaitingTime());
+                waitingTimeQueue2.setText(dateFormat.format(date2));
+            }
         }
 
 
@@ -233,6 +259,8 @@ public class BranchDetailsFragment extends Fragment {
                                                     t.getRef().child(CURRENT_QUEUE_NUMBER).setValue(queueNumber);
                                                     t.getRef().child(CURRENT_BRANCH_ID).setValue(branch.getBranchID());
                                                     t.getRef().child(NUMBER_IN_QUEUE).setValue(String.valueOf(lastCustomerNumber));
+                                                    t.getRef().child(TIME_TICKET_BOOKED).setValue(Calendar.getInstance().getTimeInMillis());
+
 
                                                     Toast.makeText(getActivity(),"Added in queue",Toast.LENGTH_SHORT).show();
                                                     goToTicketFragment();

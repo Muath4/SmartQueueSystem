@@ -109,8 +109,13 @@
     <string name="there_is_no_branches_in_this_company">There is no branches in this company!</string>
     <string name="statistics">Statistics</string>
     <string name="cancel_ticket_">Ticket canceled:</string>
-    <string name="out_range_the_branch">Out range the branch:</string>
+    <string name="out_range_the_branch">Ticket out the branch range:</string>
     <string name="ticket_complete">Ticket complete:</string>
+    <string name="average_waiting_time">Average waiting time:</string>
+    <string name="no_info">No info</string>
+    <string name="general_statistics">General Statistics</string>
+    <string name="average_waiting_of_all_queues">Average queue waiting time:</string>
+    <string name="send">Send</string>
 
 
 </resources>

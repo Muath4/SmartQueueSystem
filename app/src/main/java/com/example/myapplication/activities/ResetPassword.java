@@ -13,11 +13,12 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetPassword extends AppCompatActivity {
     private EditText email;
-    private TextView resetPass;
+    private MaterialButton resetPass;
     private FirebaseAuth Auth;
 
     @Override
@@ -26,7 +27,7 @@ public class ResetPassword extends AppCompatActivity {
         setContentView(R.layout.activity_reset_password);
 
         email = (EditText)findViewById(R.id.editTextTextPersonName);
-        resetPass = (TextView) findViewById(R.id.textView19);
+        resetPass = findViewById(R.id.textView19);
         Auth = FirebaseAuth.getInstance();
 
         resetPass.setOnClickListener(new View.OnClickListener() {
@@ -67,17 +68,15 @@ public class ResetPassword extends AppCompatActivity {
         if(uemail.equals("")){
             Toast.makeText(ResetPassword.this, "Please enter your registered email ID", Toast.LENGTH_SHORT).show();
         }else{
-            Auth.sendPasswordResetEmail(uemail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
+            Auth.sendPasswordResetEmail(uemail)
+                    .addOnSuccessListener(t->{
                         Toast.makeText(ResetPassword.this, "Password reset email sent!", Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(ResetPassword.this, LoginPageActivity.class));
-                    }else{
-                        Toast.makeText(ResetPassword.this, "Error in sending password reset email", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                        startActivity(new Intent(ResetPassword.this, LoginPageActivity.class));})
+                    .addOnFailureListener(task -> {
+
+                    Toast.makeText(ResetPassword.this, task.getMessage(), Toast.LENGTH_SHORT).show();
+
             });
         }
     }

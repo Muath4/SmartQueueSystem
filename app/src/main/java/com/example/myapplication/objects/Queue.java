@@ -11,6 +11,8 @@ public class Queue implements Serializable {
     private boolean isQueueRun;
     private int lastCustomerNumber;
     private Map<String, Object> customerListUpdates = new HashMap<>();
+    private long averageWaitingTime;
+    private int timesTicketCompleted;
 // فيه ميثود جديدة اضفتها هي ResetQueue
     // الميثودات Edit and Delete ماراح نسويها الحين
 
@@ -27,6 +29,8 @@ public class Queue implements Serializable {
         QueueName = queueName;
         lastCustomerNumber = 0;
         isQueueRun = true;
+        averageWaitingTime=0;
+        timesTicketCompleted=0;
     }
 
 
@@ -107,5 +111,21 @@ public class Queue implements Serializable {
 
     public void setQueueRun(boolean queueRun) {
         isQueueRun = queueRun;
+    }
+
+    public long getAverageWaitingTime() {
+        return averageWaitingTime;
+    }
+
+    public void setAverageWaitingTime(long averageWaitingTime) {
+        this.averageWaitingTime = averageWaitingTime;
+    }
+
+    public int getTimesTicketCompleted() {
+        return timesTicketCompleted;
+    }
+
+    public void setTimesTicketCompleted(int timesTicketCompleted) {
+        this.timesTicketCompleted = timesTicketCompleted;
     }
 }

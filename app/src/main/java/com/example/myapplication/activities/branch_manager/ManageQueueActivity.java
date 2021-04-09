@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
@@ -26,9 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
+import static com.example.myapplication.activities.MainLoadingPage.AVERAGE_WAITING_TIME;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_ID;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_BRANCH_ID;
@@ -45,6 +51,7 @@ import static com.example.myapplication.activities.MainLoadingPage.QUEUE_NAME;
 import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
 import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_CANCELED;
 import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_COMPLETED;
+import static com.example.myapplication.activities.MainLoadingPage.TIME_TICKET_BOOKED;
 
 public class ManageQueueActivity extends AppCompatActivity {
 
@@ -118,6 +125,7 @@ public class ManageQueueActivity extends AppCompatActivity {
                CustomerReference.child(customerId).child(CURRENT_QUEUE_ID).removeValue();
                CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();
                CustomerReference.child(customerId).child(NUMBER_IN_QUEUE).removeValue();
+               CustomerReference.child(customerId).child(TIME_TICKET_BOOKED).removeValue();
            });
         });
 
@@ -259,6 +267,7 @@ public class ManageQueueActivity extends AppCompatActivity {
         private final TextView phone;
         private final TextView name;
         private final Button call,notification;
+        private ImageView specificCustomerCompletedImage;
 
         public CustomerDetailHolder(View itemView) {
             super(itemView);
@@ -266,6 +275,7 @@ public class ManageQueueActivity extends AppCompatActivity {
             name = itemView.findViewById(R.id.item_customer_name);
             call = itemView.findViewById(R.id.call_button_manage_queue_item);
             notification = itemView.findViewById(R.id.send_notification_button_item);
+            specificCustomerCompletedImage =itemView.findViewById(R.id.remove_specific_customer_branch_admin);
         }
 
 
@@ -275,7 +285,7 @@ public class ManageQueueActivity extends AppCompatActivity {
             CustomerReference.child(s).get()
                     .addOnSuccessListener(t->{
                         Customer customer = t.getValue(Customer.class);
-
+                        specificCustomerCompletedImage.setOnClickListener(t3->callNextCustomer(customer.getUserId()));
             String customerPhone = String.valueOf(customer.getPhoneNumber());
             String CustomerName = customer.getUsername();
             phone.setText(customerPhone);
@@ -297,9 +307,11 @@ public class ManageQueueActivity extends AppCompatActivity {
     }
 
     String customerNumberInQueue = null;
+    long bookedTime = 0;
     private void callNextCustomer(String customerId) {
         if(firstCustomerId == null)
             return;
+
 
 
         CustomerReference.child(customerId).child(CURRENT_QUEUE_ID).removeValue();
@@ -313,18 +325,17 @@ public class ManageQueueActivity extends AppCompatActivity {
             customerList.put(customerNumberInQueue,null);
             BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(customerList);
         });
-
-
-
-
-        ticketCompleted(customerId);
-
-
+        CustomerReference.child(customerId).child(TIME_TICKET_BOOKED).get().addOnSuccessListener(t->{
+            bookedTime = t.getValue(Long.TYPE);
+            t.getRef().removeValue();
+            ticketCompleted(customerId, bookedTime);
+        });
 
 
     }
 
-    private void ticketCompleted(String customerId){
+    int ticketCompletedInQueue = 0;
+    private void ticketCompleted(String customerId, long bookedTime){
         CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).get().addOnSuccessListener(t-> {
             if(t.getValue()==null)
                 CustomerReference.child(customerId).child(TIMES_TICKET_COMPLETED).setValue(1);
@@ -338,6 +349,45 @@ public class ManageQueueActivity extends AppCompatActivity {
             else
                 Root.getReference().child(STATISTIC).child(TIMES_TICKET_COMPLETED).setValue(t.getValue(Integer.TYPE) + 1);
         });
+
+
+
+
+        BranchReference.child(branchId).child(queueNumber).child(TIMES_TICKET_COMPLETED).get().addOnSuccessListener(t-> {
+            if(t.getValue()==null) {
+                ticketCompletedInQueue=1;
+            }
+            else {
+                ticketCompletedInQueue = t.getValue(Integer.TYPE) + 1;
+            }
+            t.getRef().setValue(ticketCompletedInQueue);
+
+            long waitingTime = Calendar.getInstance().getTimeInMillis() - bookedTime;
+
+            BranchReference.child(branchId).child(queueNumber).child(AVERAGE_WAITING_TIME).get()
+                    .addOnSuccessListener(t2->{
+                        if(t2.getValue()==null)
+                            t2.getRef().setValue(waitingTime);
+                        else{
+                            long totalOldWaitingTime = (t2.getValue(Long.TYPE)*(ticketCompletedInQueue-1));
+                            long newAverage = (totalOldWaitingTime+waitingTime)/ticketCompletedInQueue;
+
+                            t2.getRef().setValue(newAverage);
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
+                            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                            Date date = new Date(newAverage);
+                            Log.d("^%&$",dateFormat.format(date));
+
+
+                        }
+                    });
+        });
+
+
+
+
+
     }
 
 

@@ -25,7 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.admin.editCompanyAdminActivity"></activity>
+        <activity android:name=".activities.admin.StatisticActivity"></activity>
+        <activity android:name=".activities.admin.editCompanyAdminActivity" />
         <activity android:name=".activities.admin.DeactivatedUsersListActivity" />
         <activity android:name=".activities.DeletedAccountPageActivity" />
         <activity android:name=".activities.admin.editCustomerAdminActivity" />
