@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -29,6 +30,7 @@ public class editCustomerAdminActivity extends AppCompatActivity {
     TextInputEditText nameEditText,phoneEditText;
     Button save,cancel,delete;
     Map<String, Object> update = new HashMap<>();
+    private TextView completeTimes,outRangeTimes,cancelTimes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +47,20 @@ public class editCustomerAdminActivity extends AppCompatActivity {
             customer = t.getValue(Customer.class);
             nameEditText.setText(customer.getUsername());
             phoneEditText.setText(customer.getPhoneNumber());
+            completeTimes.setText(String.valueOf(customer.getTimesTicketCompleted()));
+            outRangeTimes.setText(String.valueOf(customer.getTimesCustomerOutRangeAfterBookTicket()));
+            cancelTimes.setText(String.valueOf(customer.getTimesTicketCanceled()));
         })
                 .addOnFailureListener(t-> Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT));
     }
 
+
     private void setViews() {
         nameEditText = findViewById(R.id.customer_name_edit_customer_admin);
         phoneEditText = findViewById(R.id.customer_phone_edit_customer_admin);
+        completeTimes = findViewById(R.id.complete_ticket);
+        outRangeTimes = findViewById(R.id.out_range_ticket);
+        cancelTimes = findViewById(R.id.cancel_ticket);
         save = findViewById(R.id.save_changes_customer_edit_admin);
         save.setOnClickListener(t->{
             if(nameEditText.getText().toString().equals("")||phoneEditText.getText().toString().equals(""))
