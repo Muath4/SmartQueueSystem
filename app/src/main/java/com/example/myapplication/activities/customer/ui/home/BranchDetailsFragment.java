@@ -45,7 +45,7 @@ import static com.example.myapplication.activities.MainLoadingPage.QUEUE2;
  * create an instance of this fragment.
  */
 public class BranchDetailsFragment extends Fragment {
-
+//
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference rootRef = firebaseDatabase.getReference();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

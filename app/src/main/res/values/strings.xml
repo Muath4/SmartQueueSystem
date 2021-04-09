@@ -42,7 +42,6 @@
     <string name="erremail">Error in sending password reset email </string>
     <string name="emailregester">Please enter your valid email and at least 6 entries for password </string>
     <string name="emaillogin">Please enter your valid email and password </string>
-
     <string name="edit_branch">Edit Branch</string>
     <string name="just_moment">Just moment</string>
     <string name="you_have_a_shop_join_us">You have a shop? Join us!</string>
