@@ -24,9 +24,9 @@ import static com.example.myapplication.activities.MainLoadingPage.USER_TYPE;
 
 public class Admin_Activity extends AppCompatActivity {
 
-    private Button manageCompany,manageCustomer,logout;
+    private Button manageCompany,manageCustomer,logout,statistic;
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    TextView numberCompanies,numberCustomers;
+//    TextView numberCompanies,numberCustomers;
     FirebaseDatabase Root = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     @Override
@@ -38,9 +38,11 @@ public class Admin_Activity extends AppCompatActivity {
         manageCompany = findViewById(R.id.manage_company_button);
         manageCustomer = findViewById(R.id.manage_customer_button);
         logout = findViewById(R.id.log_out_button_admin);
-        numberCompanies = findViewById(R.id.number_of_companies);
-        numberCustomers = findViewById(R.id.number_of_customers);
-        setUsersNumbers();
+        statistic = findViewById(R.id.statistic_button);
+        statistic.setOnClickListener(t->startActivity(new Intent(this,StatisticActivity.class)));
+//        numberCompanies = findViewById(R.id.number_of_companies);
+//        numberCustomers = findViewById(R.id.number_of_customers);
+//        setUsersNumbers();
         manageCompany.setOnClickListener(t->startActivity(new Intent(this, UsersListActivity.class).putExtra(USER_TYPE,COMPANY)));
         manageCustomer.setOnClickListener(t->startActivity(new Intent(this, UsersListActivity.class).putExtra(USER_TYPE,CUSTOMER)));
         logout.setOnClickListener(t->{
@@ -50,7 +52,7 @@ public class Admin_Activity extends AppCompatActivity {
 
     }
 
-    private void setUsersNumbers() {
+    /*private void setUsersNumbers() {
         databaseReference.child(COMPANY).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -111,7 +113,7 @@ public class Admin_Activity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
 
 }

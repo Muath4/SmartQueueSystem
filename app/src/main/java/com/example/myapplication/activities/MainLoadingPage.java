@@ -52,8 +52,10 @@ public class MainLoadingPage extends AppCompatActivity {
     public final static String TIMES_TICKET_CANCELED = "timesTicketCanceled";
     public final static String TIMES_TICKET_COMPLETED = "timesTicketCompleted";
     public final static String TIMES_CUSTOMER_OUT_RANGE = "timesCustomerOutRangeAfterBookTicket";
+    public final static String TIME_TICKET_BOOKED = "timeTicketBooked";
     public final static String TOTAL_NUMBER_OF_QUEUES = "totalNumberOfQueues";
     public final static String AVERAGE_WAITING_TIME_OF_ALL_QUEUES = "averageWaitingTimeOfAllQueues";
+    public final static String AVERAGE_WAITING_TIME = "averageWaitingTime";
 
     public final static String LATITUDE = "latitude";
     public final static String LONGITUDE = "longitude";

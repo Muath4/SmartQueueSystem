@@ -68,6 +68,7 @@ import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.NOTIFICATION;
 import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
 import static com.example.myapplication.activities.MainLoadingPage.TIMES_CUSTOMER_OUT_RANGE;
+import static com.example.myapplication.activities.MainLoadingPage.TIME_TICKET_BOOKED;
 
 public class CustomerInterfaceActivity extends AppCompatActivity {
     private CompanyFragment companyFragment;
@@ -179,12 +180,12 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
         }
         Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "111")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                .setSmallIcon(R.drawable.ic_launcher) // notification icon
                 .setContentTitle("Smart queue System") // title for notification
                 .setContentText("Come to branch, its your turn!")// message for notification
                 .setSound(uri)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true); // clear notification after click
+                .setAutoCancel(true);// clear notification after click
         Intent intent = new Intent(getApplicationContext(), CustomerInterfaceActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
@@ -291,6 +292,7 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
                                         reference.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_ID).removeValue();
                                         reference.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
                                         reference.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_BRANCH_ID).removeValue();
+                                        reference.child(CUSTOMER).child(customer.getUserId()).child(TIME_TICKET_BOOKED).removeValue();
                                         MapsFragment.doHaveTicket = false;
 
 

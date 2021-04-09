@@ -43,6 +43,7 @@ import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_L
 import static com.example.myapplication.activities.MainLoadingPage.NUMBER_IN_QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
 import static com.example.myapplication.activities.MainLoadingPage.TIMES_TICKET_CANCELED;
+import static com.example.myapplication.activities.MainLoadingPage.TIME_TICKET_BOOKED;
 
 public class TicketFragment extends Fragment {
 
@@ -103,6 +104,7 @@ public class TicketFragment extends Fragment {
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_BRANCH_ID).removeValue();
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(NUMBER_IN_QUEUE).removeValue();
+        rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIME_TICKET_BOOKED).removeValue();
 
         setTimesTicketCanceled();
 

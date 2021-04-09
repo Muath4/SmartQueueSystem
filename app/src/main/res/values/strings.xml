@@ -89,33 +89,43 @@
     <string name="title_activity_maps11111" translatable="false">Map</string>
     <string name="branch_admin_email">Branch Admin Email</string>
     <string name="branch_admin_password">Branch Admin Password</string>
-    <string name="name">الاسم:</string>
-    <string name="phone">رقم الجوال:</string>
-    <string name="phoneNumber">رقم الجوال</string>
-    <string name="number_of_companies">عدد الشركات</string>
-    <string name="number_of_customers">عدد العملاء</string>
-    <string name="manage_customers">العملاء</string>
-    <string name="manage_company">الشركات</string>
-    <string name="delete">حذف</string>
+
+    <string name="name">Name:</string>
+    <string name="phone">Phone No:</string>
+    <string name="phoneNumber">Phone number</string>
+    <string name="number_of_companies">Number of companies:</string>
+    <string name="number_of_customers">Number of customers</string>
+    <string name="manage_customers">Manage customers</string>
+    <string name="manage_companies">Manage companies</string>
+    <string name="delete">Delete</string>
     <string name="customer_deleted">Customer deleted!</string>
-    <string name="Name">الاسم</string>
-    <string name="your_account_deleted">حسابك موقف!\الرجاء التواصل مع الدعم</string>
-    <string name="deactivated_users_list">الحسابات الموقفة</string>
-    <string name="restore">استرجاع</string>
-    <string name="remove">حذف</string>
-    <string name="deactivate">ايقاف</string>
-    <string name="activate">تفعيل</string>
-    <string name="number_of_deactivated_accounts">عدد الحسابات الموقفة:</string>
-    <string name="company_name_">اسم الشركة:</string>
-    <string name="number_of_branches_">عدد الفروع:</string>
-    <string name="this_branch_stopped">هذا الفرع موقف!</string>
-    <string name="stop">ايقاف</string>
-    <string name="start">تشغيل</string>
-    <string name="reset">اعادة ضبط</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="Name">Name</string>
+    <string name="your_account_deleted">Your account was deleted!\nPlease contact help center for more information</string>
+    <string name="deactivated_users_list">Deactivated accounts list</string>
+    <string name="restore">Restore</string>
+    <string name="remove">Remove</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="activate">Activate</string>
+    <string name="number_of_deactivated_accounts">Number of deactivated accounts:</string>
+    <string name="number_of_activated_accounts">Number of activated accounts:</string>
+    <string name="company_name_">Company name:</string>
+    <string name="number_of_branches_">Number of branches:</string>
+    <string name="this_branch_stopped">This branch has stopped!</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
+    <string name="reset">Reset</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="number_of_branches">Number of branches:</string>
     <string name="there_is_no_branches_in_this_company">There is no branches in this company!</string>
+    <string name="statistics">Statistics</string>
+    <string name="cancel_ticket_">Ticket canceled:</string>
+    <string name="out_range_the_branch">Ticket out the branch range:</string>
+    <string name="ticket_complete">Ticket complete:</string>
+    <string name="average_waiting_time">Average waiting time:</string>
+    <string name="no_info">No info</string>
+    <string name="general_statistics">General Statistics</string>
+    <string name="average_waiting_of_all_queues">Average queue waiting time:</string>
+    <string name="send">Send</string>
 
 
 </resources>

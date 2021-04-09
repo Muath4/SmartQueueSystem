@@ -15,6 +15,7 @@ public class Customer {
     private int timesTicketCanceled;
     private int timesTicketCompleted;
     private int timesCustomerOutRangeAfterBookTicket;
+    private long timeTicketBooked;
 
     public Customer() {
     }
@@ -33,6 +34,7 @@ public class Customer {
         timesTicketCompleted=0;
         timesCustomerOutRangeAfterBookTicket=0;
         numberInQueue="0";
+        timeTicketBooked = 0;
     }
 
     public String getUserId() {
@@ -137,5 +139,13 @@ public class Customer {
 
     public void setNumberInQueue(String numberInQueue) {
         this.numberInQueue = numberInQueue;
+    }
+
+    public long getTimeTicketBooked() {
+        return timeTicketBooked;
+    }
+
+    public void setTimeTicketBooked(long timeTicketBooked) {
+        this.timeTicketBooked = timeTicketBooked;
     }
 }

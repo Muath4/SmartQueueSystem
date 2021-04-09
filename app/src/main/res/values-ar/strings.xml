@@ -76,8 +76,7 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
@@ -108,6 +107,15 @@
     <string name="number_of_branches_">عدد الفروع:</string>
     <string name="number_of_branches">عدد الفروع:</string>
     <string name="there_is_no_branches_in_this_company">لا توجد فروع للشركة!</string>
-
+    <string name="statistics">Statistics</string>
+    <string name="cancel_ticket_">Cancel ticket:</string>
+    <string name="out_range_the_branch">Out range the branch:</string>
+    <string name="ticket_complete">Ticket complete:</string>
+    <string name="number_of_activated_accounts">Number of activated accounts:</string>
+    <string name="average_waiting_time">Average waiting time:</string>
+    <string name="no_info">No info</string>
+    <string name="general_statistics">General Statistics</string>
+    <string name="average_waiting_of_all_queues">Average waiting of all queues:</string>
+    <string name="send">Send</string>
 
 </resources>

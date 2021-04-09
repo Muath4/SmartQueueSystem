@@ -9,6 +9,14 @@
     android:padding="1pt"
     android:background="@color/mainBackgroundColor">
 
+    <ImageView
+        android:id="@+id/remove_specific_customer_branch_admin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_24"/>
+
     <LinearLayout
         android:id="@+id/linearLayout_customer_name_item"
         android:layout_width="wrap_content"
