@@ -234,7 +234,7 @@ public class BranchDetailsFragment extends Fragment {
                                                     t.getRef().child(CURRENT_BRANCH_ID).setValue(branch.getBranchID());
                                                     t.getRef().child(NUMBER_IN_QUEUE).setValue(String.valueOf(lastCustomerNumber));
 
-                                                    Toast.makeText(getActivity(),"Added in queue",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getText(R.string.alb),Toast.LENGTH_SHORT).show();
                                                     goToTicketFragment();
 
 
