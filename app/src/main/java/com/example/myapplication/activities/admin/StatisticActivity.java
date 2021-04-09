@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
+import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
+import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
 import static com.example.myapplication.activities.MainLoadingPage.STATISTIC;
 
 public class StatisticActivity extends AppCompatActivity {
@@ -25,7 +27,7 @@ public class StatisticActivity extends AppCompatActivity {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference statisticRef = databaseReference.child(STATISTIC);
     private DatabaseReference branchRef = databaseReference.child(BRANCH);
-    private TextView completeTimes,outRangeTimes,cancelTimes,averageTotal,numberOfQueuesTextView,numberOfBranchesTextView;
+    private TextView completeTimes,outRangeTimes,cancelTimes,averageTotal,numberOfQueuesTextView,numberOfBranchesTextView,companyNumber,customerNumber;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class StatisticActivity extends AppCompatActivity {
                     outRangeTimes.setText(String.valueOf(statistic.getTimesCustomerOutRangeAfterBookTicket()));
                     cancelTimes.setText(String.valueOf(statistic.getTimesTicketCanceled()));
                 });
+        databaseReference.child(CUSTOMER).get().addOnSuccessListener(t->customerNumber.setText(String.valueOf(t.getChildrenCount())) );
+        databaseReference.child(COMPANY).get().addOnSuccessListener(t->companyNumber.setText(String.valueOf(t.getChildrenCount())) );
 
     }
 
@@ -79,6 +83,8 @@ public class StatisticActivity extends AppCompatActivity {
         averageTotal = findViewById(R.id.average_waiting_time_of_all_queues);
         numberOfQueuesTextView = findViewById(R.id.queues_number);
         numberOfBranchesTextView = findViewById(R.id.branches_number);
+        companyNumber = findViewById(R.id.company_number);
+        customerNumber = findViewById(R.id.customer_number);
 
     }
 }
