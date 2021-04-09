@@ -115,6 +115,7 @@
     <string name="no_info">No info</string>
     <string name="general_statistics">General Statistics</string>
     <string name="average_waiting_of_all_queues">Average queue waiting time:</string>
+    <string name="send">Send</string>
 
 
 </resources>
