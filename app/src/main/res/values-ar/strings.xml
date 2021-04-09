@@ -27,7 +27,7 @@
     <string name="dhave">ليس لديك تذكرة!</string>
     <string name="outran">انت خارج النطاق تم الغاء التذكرة</string>
 
-    <string name="person">اشخاص</string>
+    <string name="person">أشخاص</string>
     <string name="bookt">حجز تذكرة؟</string>
     <string name="out">انت خارج نطاق الفرع</string>
     <string name="alb">تم حجز التذكره</string>
@@ -92,11 +92,11 @@
     <string name="number_of_companies">عدد الشركات</string>
     <string name="number_of_customers">عدد العملاء</string>
     <string name="manage_customers">العملاء</string>
-    <string name="manage_company">الشركات</string>
+    <string name="manage_companies">الشركات</string>
     <string name="delete">حذف</string>
     <string name="customer_deleted">العميل محذوف!</string>
     <string name="your_account_deleted">الحساب موقف!\الرجاء التواصل مع الدعم</string>
-    <string name="Name">Name</string>
+    <string name="Name">الاسم</string>
     <string name="deactivated_users_list">الحسابات الموقفه</string>
     <string name="restore">استعادة</string>
     <string name="remove">حذف</string>
@@ -107,15 +107,19 @@
     <string name="number_of_branches_">عدد الفروع:</string>
     <string name="number_of_branches">عدد الفروع:</string>
     <string name="there_is_no_branches_in_this_company">لا توجد فروع للشركة!</string>
-    <string name="statistics">Statistics</string>
-    <string name="cancel_ticket_">Cancel ticket:</string>
-    <string name="out_range_the_branch">Out range the branch:</string>
-    <string name="ticket_complete">Ticket complete:</string>
-    <string name="number_of_activated_accounts">Number of activated accounts:</string>
-    <string name="average_waiting_time">Average waiting time:</string>
-    <string name="no_info">No info</string>
-    <string name="general_statistics">General Statistics</string>
-    <string name="average_waiting_of_all_queues">Average waiting of all queues:</string>
-    <string name="send">Send</string>
-
+    <string name="statistics">الإحصائيات</string>
+    <string name="cancel_ticket_">التذاكر الملغاة:</string>
+    <string name="out_range_the_branch">الخروج من نطاق الفرع:</string>
+    <string name="ticket_complete">التذاكرة المكتملة:</string>
+    <string name="number_of_activated_accounts">عدد الحسابات المفعلة:</string>
+    <string name="average_waiting_time">متوسط وقت الانتظار:</string>
+    <string name="no_info">لا توجد معلومات</string>
+    <string name="general_statistics">إحصائيات عامة</string>
+    <string name="average_waiting_of_all_queues">متوسط وقت الانتظار لكل الفروع:</string>
+    <string name="send">إرسال</string>
+    <string name="this_branch_stopped">هذا الفرع قد تم إيقافه!</string>
+    <string name="stop">إيقاف</string>
+    <string name="start">تشغيل</string>
+    <string name="reset">إعادة تهيئة</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
