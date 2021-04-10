@@ -9,6 +9,7 @@ import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Activity;
@@ -142,7 +143,7 @@ public class MapsFragment extends Fragment {
             bundle.putSerializable(BRANCH_CLASS, branch);
             branchDetailsFragment.setArguments(bundle);
             getParentFragmentManager().beginTransaction()
-//                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                     .addToBackStack(null)
 //                            .hide(homeFragment)
                     .replace(R.id.nav_host_fragment, branchDetailsFragment)

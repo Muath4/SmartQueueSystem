@@ -1,5 +1,7 @@
 package com.example.myapplication.activities.customer.ui.home;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -13,8 +15,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.customer.CustomerInterfaceActivity;
 import com.example.myapplication.activities.customer.ui.ticket.TicketFragment;
 import com.example.myapplication.objects.Branch;
 import com.example.myapplication.objects.Customer;
@@ -168,9 +173,8 @@ public class BranchDetailsFragment extends Fragment {
         }
 
 
-        backButtonBehavior();
+//        backButtonBehavior();
         //control back button
-
 
         return root;
     }
@@ -251,14 +255,13 @@ public class BranchDetailsFragment extends Fragment {
 
                                                     rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).setValue(lastCustomerNumber);
 
-
                                                     Map<String, Object> map = new HashMap<>();
-                                                    map.put(String.valueOf(lastCustomerNumber),firebaseAuth.getUid());
+                                                    map.put(String.valueOf(lastCustomerNumber+" _"),firebaseAuth.getUid());
                                                     rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(map);
                                                     t.getRef().child(CURRENT_QUEUE_ID).setValue(queueId);
                                                     t.getRef().child(CURRENT_QUEUE_NUMBER).setValue(queueNumber);
                                                     t.getRef().child(CURRENT_BRANCH_ID).setValue(branch.getBranchID());
-                                                    t.getRef().child(NUMBER_IN_QUEUE).setValue(String.valueOf(lastCustomerNumber));
+                                                    t.getRef().child(NUMBER_IN_QUEUE).setValue(String.valueOf(lastCustomerNumber+" _"));
                                                     t.getRef().child(TIME_TICKET_BOOKED).setValue(Calendar.getInstance().getTimeInMillis());
 
 
@@ -287,6 +290,7 @@ public class BranchDetailsFragment extends Fragment {
     private void goToTicketFragment(){
         getParentFragmentManager()
                 .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .replace(R.id.nav_host_fragment,new TicketFragment())
                 .commit();
     }
@@ -301,8 +305,12 @@ public class BranchDetailsFragment extends Fragment {
             {
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
+//                    startActivity(new Intent(getActivity(),CustomerInterfaceActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+
+
                     getParentFragmentManager()
                             .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .replace(R.id.nav_host_fragment,new CompanyFragment())
                             .commit();
                     return true;

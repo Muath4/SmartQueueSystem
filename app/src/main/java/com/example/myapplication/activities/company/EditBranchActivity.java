@@ -2,7 +2,9 @@ package com.example.myapplication.activities.company;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -10,11 +12,13 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.objects.Branch;
 import com.example.myapplication.objects.Company;
+import com.example.myapplication.objects.Customer;
 import com.example.myapplication.objects.Queue;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -23,12 +27,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
+import static com.example.myapplication.activities.MainLoadingPage.BRANCH_ADMIN;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
+import static com.example.myapplication.activities.MainLoadingPage.CURRENT_BRANCH_ID;
+import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_ID;
+import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
+import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
+import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER_ID_LIST;
 import static com.example.myapplication.activities.MainLoadingPage.LATITUDE;
 import static com.example.myapplication.activities.MainLoadingPage.LONGITUDE;
+import static com.example.myapplication.activities.MainLoadingPage.NUMBER_IN_QUEUE;
 import static com.example.myapplication.activities.MainLoadingPage.NUMBER_OF_BRANCHES;
+import static com.example.myapplication.activities.MainLoadingPage.QUEUE1;
+import static com.example.myapplication.activities.MainLoadingPage.QUEUE2;
 import static com.example.myapplication.activities.MainLoadingPage.RADIUS;
 
 public class EditBranchActivity extends AppCompatActivity {
@@ -49,6 +66,7 @@ public class EditBranchActivity extends AppCompatActivity {
 
     private ImageButton locationIcon;
     int LAUNCH_SECOND_ACTIVITY = 1;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +77,7 @@ public class EditBranchActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setupUIViews() {
 
         radioGroupQueue = findViewById(R.id.radio_group_queue_edit_branch);
@@ -134,8 +153,13 @@ public class EditBranchActivity extends AppCompatActivity {
         branchReference = Root.getReferenceFromUrl(getIntent().getExtras().getString(BRANCH));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setDeleteBranchButton() {
         progressBar.setVisibility(View.VISIBLE);
+        deleteCustomerInsideQueue();
+    }
+
+    private void deleteBranch() {
         branchReference.removeValue()
                 .addOnSuccessListener( t2 -> {
                     Root.getReference().child(COMPANY).child(firebaseAuth.getUid()).get().addOnSuccessListener(t3->{
@@ -151,6 +175,41 @@ public class EditBranchActivity extends AppCompatActivity {
                 })
                 .addOnCompleteListener(t2 -> progressBar.setVisibility(View.GONE))
                 .addOnFailureListener(t2 -> Toast.makeText(getApplicationContext(),t2.getMessage(),Toast.LENGTH_SHORT).show());
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void deleteCustomerInsideQueue() {
+        branchReference.get().addOnSuccessListener(t->{
+            Branch branch = t.getValue(Branch.class);
+            deleteCustomerInOneQueue(QUEUE1);
+            if(branch.getNumberOfQueues() == 2)
+                deleteCustomerInOneQueue(QUEUE2);
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void deleteCustomerInOneQueue(String queueNumber) {
+        Log.d("#$%@EW","deleteCustomerInOneQueue");
+//        Map<String, Object> deactivateBranchAdmin = new HashMap<>();
+//        deactivateBranchAdmin.put(ACTIVATED,false);
+//        String branchId = branchFromIntent.getBranchID();
+//        Root.getReference().child(BRANCH_ADMIN).child(branchId).updateChildren(deactivateBranchAdmin);
+        branchReference.child(queueNumber).child(CUSTOMER_ID_LIST).get().addOnSuccessListener(t2->{
+            Log.d("#$%@EW",t2.getValue() +"^^"+t2.getKey()+"^^"+t2.getChildren());
+            deleteBranch();
+
+            t2.getChildren().forEach(t3->{
+
+                Root.getReference().child(CUSTOMER).child(String.valueOf(t3.getValue())).get().addOnSuccessListener(t4->{
+                    Map<String, Object> update = new HashMap<>();
+                    update.put(CURRENT_BRANCH_ID,null);
+                    update.put(CURRENT_QUEUE_NUMBER,null);
+                    update.put(CURRENT_QUEUE_ID,null);
+                    update.put(NUMBER_IN_QUEUE,null);
+                    t4.getRef().updateChildren(update);
+                });
+            });
+        });
     }
 
 

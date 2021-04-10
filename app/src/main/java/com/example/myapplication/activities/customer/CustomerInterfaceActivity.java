@@ -120,6 +120,7 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
                                 if (String.valueOf(snapshot.getValue())  != null) {
                                     reference.child(BRANCH).child(String.valueOf(snapshot.getValue())).get()
                                             .addOnSuccessListener(t -> {
+                                                Log.d("#@%#@",String.valueOf(t.getValue()) );
                                                 branch = t.getValue(Branch.class);
                                                 LatLng latLng = new LatLng(branch.getLatitude(), branch.getLongitude());
                                                 setLocation();

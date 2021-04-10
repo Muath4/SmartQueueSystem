@@ -8,6 +8,12 @@
     tools:ignore="ExtraText"
     tools:context=".activities.admin.Admin_Activity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType = "centerCrop"
+        android:alpha="0.6"
+        android:src="@drawable/admin_background"/>
     <Button
         android:id="@+id/manage_company_button"
         android:layout_width="wrap_content"
