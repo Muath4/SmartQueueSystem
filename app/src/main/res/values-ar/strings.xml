@@ -37,7 +37,9 @@
     <string name="number_of_queues">عدد الطوابير:</string>
     <string name="add">إضافة</string>
     <string name="uploaslog">تغيير الشعار</string>
-
+    <string name="numcus">عدد العملاء </string>
+    <string name="call">التالي </string>
+    <string name="queues">الطوابير </string>
     <string name="location">الموقع</string>
     <string name="location_">الموقع:</string>
     <string name="queue_name">اسم الطابور:</string>

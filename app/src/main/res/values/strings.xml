@@ -42,6 +42,9 @@
     <string name="erremail">Error in sending password reset email </string>
     <string name="emailregester">Please enter your valid email and at least 6 entries for password </string>
     <string name="emaillogin">Please enter your valid email and password </string>
+    <string name="numcus">Number of customers: </string>
+    <string name="call">Call next </string>
+    <string name="queues">Queues </string>
 
     <string name="edit_branch">Edit Branch</string>
     <string name="just_moment">Just moment</string>
