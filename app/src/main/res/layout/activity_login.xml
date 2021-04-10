@@ -145,25 +145,12 @@
         android:textColor="#1FB4BD"
         app:backgroundTint="#FFFFFF"
         android:textSize="17sp"
-        android:layout_margin="5pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/What_is_sqs"/>
-
-    <TextView
-        android:id="@+id/What_is_sqs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/what_is_smart_queue_system"
-        android:textColor="@color/white"
-        android:background="@color/notificationBarColor"
-        android:textSize="20sp"
-        android:padding="10dp"
-        android:gravity="center"
+        android:layout_margin="15pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
 <!--    <TextView-->
 <!--        android:id="@+id/Admins"-->
