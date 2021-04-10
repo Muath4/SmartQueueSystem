@@ -8,9 +8,9 @@ public class Queue implements Serializable {
     private String QueueID;
     private String BranchID;
     private String QueueName;
-    private boolean isQueueRun;
+    private boolean queueRun;
     private int lastCustomerNumber;
-    private Map<String, Object> customerListUpdates = new HashMap<>();
+    private Map<String, Object> customerListUpdates;
     private long averageWaitingTime;
     private int timesTicketCompleted;
 // فيه ميثود جديدة اضفتها هي ResetQueue
@@ -28,9 +28,10 @@ public class Queue implements Serializable {
         BranchID = branchId;
         QueueName = queueName;
         lastCustomerNumber = 0;
-        isQueueRun = true;
+        queueRun = false;
         averageWaitingTime=0;
         timesTicketCompleted=0;
+        customerListUpdates = new HashMap<>();
     }
 
 
@@ -106,11 +107,11 @@ public class Queue implements Serializable {
     }
 
     public boolean isQueueRun() {
-        return isQueueRun;
+        return queueRun;
     }
 
     public void setQueueRun(boolean queueRun) {
-        isQueueRun = queueRun;
+        this.queueRun = queueRun;
     }
 
     public long getAverageWaitingTime() {

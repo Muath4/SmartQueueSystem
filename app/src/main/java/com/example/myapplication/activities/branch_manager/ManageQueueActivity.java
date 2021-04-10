@@ -323,6 +323,7 @@ public class ManageQueueActivity extends AppCompatActivity {
             t.getRef().removeValue();
             Map<String, Object> customerList = new HashMap<>();
             customerList.put(customerNumberInQueue,null);
+            Log.d("*^%#$%#$",customerNumberInQueue);
             BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(customerList);
         });
         CustomerReference.child(customerId).child(TIME_TICKET_BOOKED).get().addOnSuccessListener(t->{

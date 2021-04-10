@@ -98,7 +98,7 @@ public class TicketFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void ticketCanceled() {
         Map<String, Object> customerList = new HashMap<>();
-        customerList.put(customer.getNumberInQueue(),null);
+        customerList.put(String.valueOf(customer.getNumberInQueue()) ,null);
         rootRef.child(BRANCH).child(customer.getCurrentBranchId()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).updateChildren(customerList);
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_ID).removeValue();
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_QUEUE_NUMBER).removeValue();
@@ -225,15 +225,19 @@ public class TicketFragment extends Fragment {
                                 .child(branch.getBranchID())
                                 .child(customer.getCurrentQueueNumber())
                                 .child(CUSTOMER_ID_LIST)
-                                .child(customer.getNumberInQueue())
+                                .child(String.valueOf(customer.getNumberInQueue()))
                                 .get()
                                 .addOnSuccessListener(number-> {
                                     if(number.getValue()!=null) {
-                                        currentOrderNumber = Integer.parseInt(number.getKey());
+                                        int indexOf_ = number.getKey().indexOf("_");
+                                        String splitNumber = number.getKey().substring(0,indexOf_-1);
+                                        currentOrderNumber = Integer.parseInt(splitNumber);
 
                                         t.getChildren().forEach(t2 -> {
 //                            Log.d("&&^^", String.valueOf(currentOrderNumber)+"   " +t2.getValue(Integer.TYPE));
-                                            if (Integer.parseInt(t2.getKey()) < currentOrderNumber) {
+                                            int indexOf_2 = t2.getKey().indexOf("_");
+                                            String splitNumber2 = t2.getKey().substring(0,indexOf_-1);
+                                            if (Integer.parseInt(splitNumber2) < currentOrderNumber) {
 
                                                 beforeYou++;
                                                 Log.d("&&^^", String.valueOf(beforeYou));

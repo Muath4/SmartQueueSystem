@@ -110,7 +110,7 @@
     <string name="statistics">Statistics</string>
     <string name="cancel_ticket_">Ticket canceled:</string>
     <string name="out_range_the_branch">Ticket out the branch range:</string>
-    <string name="ticket_complete">Ticket complete:</string>
+    <string name="ticket_complete">Ticket completed:</string>
     <string name="average_waiting_time">Average waiting time:</string>
     <string name="no_info">No info</string>
     <string name="general_statistics">General Statistics</string>

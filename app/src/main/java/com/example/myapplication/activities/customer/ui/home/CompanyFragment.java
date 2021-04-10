@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +37,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.Objects;
 
 import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
@@ -89,6 +94,7 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
 //        homeViewModel.setBranchRecyclerView(root,getParentFragmentManager());
         setBranchRecyclerView(null);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+//        backButtonBehavior();
         return root;
     }
 
@@ -121,7 +127,7 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
                     bundle.putSerializable(COMPANY_ID,getItem(position).getUserId());
                     branchFragment.setArguments(bundle);
                     getParentFragmentManager().beginTransaction()
-//                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                             .addToBackStack(null)
 //                            .hide(homeFragment)
                             .replace(R.id.nav_host_fragment, branchFragment)
@@ -268,6 +274,26 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
         }
     }*/
 
+    private void backButtonBehavior() {
+        root.setFocusableInTouchMode(true);
+        root.requestFocus();
+        root.setOnKeyListener( new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey( View v, int keyCode, KeyEvent event )
+            {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
+                    try {
+                        requireActivity().finish();
+                    }catch (Exception ignored){}
+
+                    return true;
+                }
+                return false;
+            }
+        } );
+    }
 
 }
 
