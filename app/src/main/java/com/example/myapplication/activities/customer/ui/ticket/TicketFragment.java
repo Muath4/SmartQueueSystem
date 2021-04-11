@@ -105,15 +105,8 @@ public class TicketFragment extends Fragment {
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(CURRENT_BRANCH_ID).removeValue();
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(NUMBER_IN_QUEUE).removeValue();
         rootRef.child(CUSTOMER).child(customer.getUserId()).child(TIME_TICKET_BOOKED).removeValue();
-
         setTimesTicketCanceled();
-
-
         setTicket();
-//        getParentFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.nav_host_fragment,new TicketFragment())
-//                .commit();
     }
 
     private void setTimesTicketCanceled() {

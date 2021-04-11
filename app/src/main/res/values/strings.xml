@@ -129,5 +129,7 @@
     <string name="havet">You already have a ticket</string>
     <string name="dhave">You don\'t have a ticket!</string>
     <string name="outran">You are outside the range, your ticked canceled!</string>
+    <string name="choose_logo">Choose logo</string>
+    <string name="please_choose_logo">Please choose a logo</string>
 
 </resources>
