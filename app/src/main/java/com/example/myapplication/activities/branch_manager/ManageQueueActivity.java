@@ -311,9 +311,6 @@ public class ManageQueueActivity extends AppCompatActivity {
     private void callNextCustomer(String customerId) {
         if(firstCustomerId == null)
             return;
-
-
-
         CustomerReference.child(customerId).child(CURRENT_QUEUE_ID).removeValue();
         CustomerReference.child(customerId).child(CURRENT_BRANCH_ID).removeValue();
         CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();
@@ -323,7 +320,6 @@ public class ManageQueueActivity extends AppCompatActivity {
             t.getRef().removeValue();
             Map<String, Object> customerList = new HashMap<>();
             customerList.put(customerNumberInQueue,null);
-            Log.d("*^%#$%#$",customerNumberInQueue);
             BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(customerList);
         });
         CustomerReference.child(customerId).child(TIME_TICKET_BOOKED).get().addOnSuccessListener(t->{
@@ -331,8 +327,6 @@ public class ManageQueueActivity extends AppCompatActivity {
             t.getRef().removeValue();
             ticketCompleted(customerId, bookedTime);
         });
-
-
     }
 
     int ticketCompletedInQueue = 0;

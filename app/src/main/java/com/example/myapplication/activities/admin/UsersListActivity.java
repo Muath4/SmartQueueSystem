@@ -45,7 +45,6 @@ import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY_ID;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY_LOGO;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
-import static com.example.myapplication.activities.MainLoadingPage.USER_ID;
 import static com.example.myapplication.activities.MainLoadingPage.USER_TYPE;
 
 public class UsersListActivity extends AppCompatActivity {
@@ -206,14 +205,14 @@ public class UsersListActivity extends AppCompatActivity {
 
     public static class CustomerHolder extends RecyclerView.ViewHolder{
         private TextView nameTextView,phoneTextView,emailTextView;
-        private Button delete;
+        private Button deActivate;
 
         public CustomerHolder(View itemView) {
             super(itemView);
             this.nameTextView = itemView.findViewById(R.id.customer_name_item_panel);
             this.phoneTextView = itemView.findViewById(R.id.customer_phone_item_panel);
             this.emailTextView=itemView.findViewById(R.id.customer_email_item_panel);
-            delete = itemView.findViewById(R.id.delete_customer_button_item);
+            deActivate = itemView.findViewById(R.id.delete_customer_button_item);
         }
 
         public void setCustomer(Customer customer) {
@@ -223,7 +222,7 @@ public class UsersListActivity extends AppCompatActivity {
             nameTextView.setText(name);
             phoneTextView.setText(phone);
             emailTextView.setText(email);
-            delete.setOnClickListener(t->{
+            deActivate.setOnClickListener(t->{
                 Map<String, Object> update = new HashMap<>();
                 update.put(ACTIVATED,false);
                 FirebaseDatabase.getInstance().getReference().child(CUSTOMER).child(customer.getUserId()).updateChildren(update);

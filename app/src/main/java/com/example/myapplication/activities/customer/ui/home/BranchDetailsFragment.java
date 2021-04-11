@@ -267,11 +267,7 @@ public class BranchDetailsFragment extends Fragment {
 
                         Toast.makeText(getActivity(),getText(R.string.alb),Toast.LENGTH_SHORT).show();
                                                     goToTicketFragment();
-
-
                                                 });
-
-
                                     }
                                     else
                                     {

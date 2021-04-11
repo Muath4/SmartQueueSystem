@@ -142,14 +142,13 @@ public class RegisterCompanyActivity extends AppCompatActivity {
         password = Pass.getText().toString();
         email = Email.getText().toString();
 
-        if (name.isEmpty() || password.isEmpty() || email.isEmpty()) {
+        if (name.isEmpty() || password.isEmpty() || email.isEmpty())
             Toast.makeText(getApplicationContext(),getText(R.string.pleaseFillAllFields),Toast.LENGTH_SHORT).show();
-        } else if(filepath == null) {
-            Toast.makeText(this, "Please choose a logo", Toast.LENGTH_SHORT).show();
-            return false;
-        } {
+         else if(filepath == null)
+            Toast.makeText(this, getString(R.string.please_choose_logo), Toast.LENGTH_SHORT).show();
+         else
             result = true;
-        }
+
 
         return result;
     }
