@@ -44,6 +44,7 @@ import static com.example.myapplication.activities.MainLoadingPage.ACTIVATED;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_NAME;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY;
+import static com.example.myapplication.activities.MainLoadingPage.COMPANY_FRAGMENT;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY_ID;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY_LOGO;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY_NAME;
@@ -77,6 +78,11 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
         super.onStart();
         if(firebaseRecyclerAdapter != null)
             firebaseRecyclerAdapter.startListening();
+        FragmentManager fragmentManager = getParentFragmentManager();
+        if(fragmentManager.getBackStackEntryCount()!=0) {
+            fragmentManager.popBackStack(fragmentManager.getBackStackEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+
     }
 
     @Override
@@ -128,7 +134,8 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
                     branchFragment.setArguments(bundle);
                     getParentFragmentManager().beginTransaction()
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                            .addToBackStack(null)
+                            .addToBackStack(COMPANY_FRAGMENT)
+                            .setReorderingAllowed(true)
 //                            .hide(homeFragment)
                             .replace(R.id.nav_host_fragment, branchFragment)
                             .commit();
@@ -224,6 +231,7 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.top_home_menu, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.home_search);
@@ -232,9 +240,10 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
 //                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 //        searchView.setSearchableInfo(
 //                searchManager.getSearchableInfo(getActivity().getComponentName()));
-
         searchView.setOnQueryTextListener(this);
     }
+
+
 
     @Override
     public boolean onQueryTextSubmit(String query) {

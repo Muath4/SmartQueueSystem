@@ -55,6 +55,7 @@ import java.util.TimerTask;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_BRANCH_ID;
 import static com.example.myapplication.activities.MainLoadingPage.CUSTOMER;
+import static com.example.myapplication.activities.MainLoadingPage.MAPS_FRAGMENT;
 
 public class MapsFragment extends Fragment {
     private GoogleMap mMap;
@@ -144,7 +145,8 @@ public class MapsFragment extends Fragment {
             branchDetailsFragment.setArguments(bundle);
             getParentFragmentManager().beginTransaction()
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                    .addToBackStack(null)
+                    .addToBackStack(MAPS_FRAGMENT)
+                    .setReorderingAllowed(true)
 //                            .hide(homeFragment)
                     .replace(R.id.nav_host_fragment, branchDetailsFragment)
                     .commit();

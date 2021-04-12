@@ -197,17 +197,6 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
     }
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        /**
-         * Manipulates the map once available.
-         * getActivity() callback is triggered when the map is ready to be used.
-         * getActivity() is where we can add markers or lines, add listeners or move the camera.
-         * In getActivity() case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. getActivity() method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-
         @Override
         public void onMapReady(GoogleMap googleMap) {
             LatLng sydney = new LatLng(-34, 151);

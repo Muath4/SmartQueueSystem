@@ -128,5 +128,6 @@
     <string name="outran">You are outside the range, your ticked canceled!</string>
     <string name="choose_logo">Choose logo</string>
     <string name="please_choose_logo">Please choose a logo</string>
+    <string name="in_queue_before">You are in a queue before!</string>
 
 </resources>

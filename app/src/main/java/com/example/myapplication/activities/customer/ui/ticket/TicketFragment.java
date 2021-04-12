@@ -204,6 +204,11 @@ public class TicketFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 
     int beforeYou = 0;
     int currentOrderNumber;

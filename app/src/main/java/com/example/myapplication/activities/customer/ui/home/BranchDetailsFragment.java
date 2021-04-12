@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activities.customer.CustomerInterfaceActivity;
@@ -37,8 +38,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
+import static androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
+import static androidx.navigation.Navigation.findNavController;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
+import static com.example.myapplication.activities.MainLoadingPage.BRANCH_DETAILS_FRAGMENT;
+import static com.example.myapplication.activities.MainLoadingPage.BRANCH_FRAGMENT;
+import static com.example.myapplication.activities.MainLoadingPage.COMPANY_FRAGMENT;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_BRANCH_ID;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_ID;
 import static com.example.myapplication.activities.MainLoadingPage.CURRENT_QUEUE_NUMBER;
@@ -173,7 +179,7 @@ public class BranchDetailsFragment extends Fragment {
         }
 
 
-//        backButtonBehavior();
+        backButtonBehavior();
         //control back button
 
         return root;
@@ -271,7 +277,7 @@ public class BranchDetailsFragment extends Fragment {
                                     }
                                     else
                                     {
-                                        Toast.makeText(getActivity(), "You are in a queue before!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(),getString(R.string.in_queue_before) , Toast.LENGTH_SHORT).show();
                                         goToTicketFragment();
                                     }
                                 });
@@ -287,6 +293,7 @@ public class BranchDetailsFragment extends Fragment {
         getParentFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                .setReorderingAllowed(true)
                 .replace(R.id.nav_host_fragment,new TicketFragment())
                 .commit();
     }
@@ -304,11 +311,22 @@ public class BranchDetailsFragment extends Fragment {
 //                    startActivity(new Intent(getActivity(),CustomerInterfaceActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
 
 
-                    getParentFragmentManager()
-                            .beginTransaction()
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .replace(R.id.nav_host_fragment,new CompanyFragment())
-                            .commit();
+                    FragmentManager fragmentManager = getParentFragmentManager();
+//                    fragmentManager.popBackStack(fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount()-2).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+//                    NavHostFragment.findNavController(new TicketFragment()).navigate(R.id.action_signInFragment_to_usersFragment);
+
+                    fragmentManager.popBackStack(BRANCH_FRAGMENT,POP_BACK_STACK_INCLUSIVE);
+//                    findNavController(root).popBackStack(R.id.navigation_home, false);
+
+//                    getParentFragmentManager().popBackStack();
+//                    getParentFragmentManager().popBackStack();
+//                    getParentFragmentManager()
+//                            .beginTransaction()
+//                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                            .setReorderingAllowed(true)
+//                            .replace(R.id.nav_host_fragment,new CompanyFragment())
+//                            .commit();
                     return true;
                 }
                 return false;

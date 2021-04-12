@@ -28,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH;
 import static com.example.myapplication.activities.MainLoadingPage.BRANCH_CLASS;
+import static com.example.myapplication.activities.MainLoadingPage.BRANCH_FRAGMENT;
 import static com.example.myapplication.activities.MainLoadingPage.COMPANY_ID;
 
 public class BranchFragment extends Fragment{
@@ -110,7 +111,8 @@ public class BranchFragment extends Fragment{
                     mapsFragment.setArguments(bundle);
                     getParentFragmentManager().beginTransaction()
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                            .addToBackStack(null)
+                            .addToBackStack(BRANCH_FRAGMENT)
+                            .setReorderingAllowed(true)
 //                            .hide(homeFragment)
                             .replace(R.id.nav_host_fragment, mapsFragment)
                             .commit();

@@ -56,13 +56,17 @@ public class MainLoadingPage extends AppCompatActivity {
     public final static String TOTAL_NUMBER_OF_QUEUES = "totalNumberOfQueues";
     public final static String AVERAGE_WAITING_TIME_OF_ALL_QUEUES = "averageWaitingTimeOfAllQueues";
     public final static String AVERAGE_WAITING_TIME = "averageWaitingTime";
-
     public final static String LATITUDE = "latitude";
     public final static String LONGITUDE = "longitude";
     public final static String RADIUS = "radius";
     public final static String COMPANY_ID = "companyID";
     public final static String HOME_FRAGMENT = "homeFragment";
     public final static String BRANCH_NAME = "branchName";
+    public final static String COMPANY_FRAGMENT = "CompanyFragment";
+    public final static String BRANCH_FRAGMENT = "BranchFragment";
+    public final static String BRANCH_DETAILS_FRAGMENT = "BranchDetailsFragment";
+    public final static String MAPS_FRAGMENT = "MapsFragment";
+    public final static String TICKET_FRAGMENT = "TicketFragment";
 
 //    public static Customer customer = null;
 //    public static Company company = null;
