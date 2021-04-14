@@ -131,5 +131,8 @@
     <string name="outran">You are outside the range, your ticked canceled!</string>
     <string name="choose_logo">Choose logo</string>
     <string name="please_choose_logo">Please choose a logo</string>
+    <string name="in_queue_before">You are in a queue before!</string>
+    <string name="completed_ticket_ratio_">Completed ticket ratio:</string>
+    <string name="logo">logo</string>
 
 </resources>

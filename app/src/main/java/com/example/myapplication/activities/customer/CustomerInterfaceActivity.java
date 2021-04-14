@@ -93,7 +93,7 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_settings)
+                R.id.navigation_home, R.id.navigation_ticket, R.id.navigation_settings)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -197,17 +197,6 @@ public class CustomerInterfaceActivity extends AppCompatActivity {
     }
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        /**
-         * Manipulates the map once available.
-         * getActivity() callback is triggered when the map is ready to be used.
-         * getActivity() is where we can add markers or lines, add listeners or move the camera.
-         * In getActivity() case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. getActivity() method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-
         @Override
         public void onMapReady(GoogleMap googleMap) {
             LatLng sydney = new LatLng(-34, 151);

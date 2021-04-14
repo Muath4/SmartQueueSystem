@@ -205,7 +205,7 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
 
 
     public static class CustomerHolder extends RecyclerView.ViewHolder{
-        private TextView nameTextView,phoneTextView,emailTextView;
+        private TextView nameTextView,phoneTextView,emailTextView,completedTicketRatio;
         private Button activate;
 
         public CustomerHolder(View itemView) {
@@ -213,6 +213,7 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
             this.nameTextView = itemView.findViewById(R.id.user_name_item_panel);
             this.phoneTextView = itemView.findViewById(R.id.user_phone_item_panel);
             this.emailTextView=itemView.findViewById(R.id.user_email_item_panel);
+            completedTicketRatio = itemView.findViewById(R.id.completed_ticket_ratio);
             activate = itemView.findViewById(R.id.restore_user);
         }
 
@@ -229,6 +230,15 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference().child(CUSTOMER).child(customer.getUserId()).updateChildren(update);
             });
 
+            double timesTicketCompleted = customer.getTimesTicketCompleted();
+            double timesCustomerOutRangeAfterBookTicket = customer.getTimesCustomerOutRangeAfterBookTicket();
+            double timesTicketCanceled = customer.getTimesTicketCanceled();
+            double allTimesTicketBooked = timesTicketCompleted+timesCustomerOutRangeAfterBookTicket+timesTicketCanceled;
+
+            double completeRatio = (timesTicketCompleted/allTimesTicketBooked)*100;
+            completeRatio = Math.floor(completeRatio * 100)/100;
+
+            completedTicketRatio.setText("%"+completeRatio);
         }
     }
 

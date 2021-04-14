@@ -141,7 +141,6 @@ public class ManageQueueActivity extends AppCompatActivity {
     }
 
     private void changeQueueState() {
-        Log.d("^%$%", String.valueOf("changeQueueState"));
         BranchReference.child(branchId).child(queueNumber).child(IS_QUEUE_RUN).get()
                 .addOnSuccessListener(t->{
                     if(t.getValue() == null) {
@@ -160,8 +159,6 @@ public class ManageQueueActivity extends AppCompatActivity {
 
                 });
     }
-
-
 
 
     @Override

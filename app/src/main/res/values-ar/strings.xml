@@ -126,4 +126,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_logo">تحميل الشعار</string>
     <string name="please_choose_logo">الرجاء اختيار الشعار</string>
+    <string name="in_queue_before">انت الآن في طابور بالفعل!</string>
+    <string name="completed_ticket_ratio_">Completed ticket ratio:</string>
+    <string name="logo">logo</string>
 </resources>
