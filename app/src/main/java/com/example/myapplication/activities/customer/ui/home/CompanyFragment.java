@@ -100,7 +100,7 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
 //        homeViewModel.setBranchRecyclerView(root,getParentFragmentManager());
         setBranchRecyclerView(null);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-//        backButtonBehavior();
+        backButtonBehavior();
         return root;
     }
 

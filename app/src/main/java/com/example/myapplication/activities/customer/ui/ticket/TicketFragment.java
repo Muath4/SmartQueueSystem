@@ -18,7 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activities.customer.ui.home.CompanyFragment;
@@ -68,7 +70,7 @@ public class TicketFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         setViews();
         setTicket();
-        backButtonBehavior();
+//        backButtonBehavior();
 
         /*final TextView textView = root.findViewById(R.id.text_dashboard);
         ticketViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -166,12 +168,13 @@ public class TicketFragment extends Fragment {
                     Branch branch = t.getValue(Branch.class);
                     ticketBranchName.setText(branch.getBranchName());
                     TicketQueueName.setText(branch.getQueueByNumber(customer.getCurrentQueueNumber()).getQueueName());
-                    setNumberBeforeYou(branch);
+//                    setNumberBeforeYou(branch);
                     rootRef.child(BRANCH).child(branch.getBranchID()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).addChildEventListener(new ChildEventListener(){
 
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                            setNumberBeforeYou(branch);
+                            if(snapshot.getValue().equals(customer.getUserId()))
+                                setNumberBeforeYou(branch);
                         }
 
                         @Override
@@ -207,7 +210,6 @@ public class TicketFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
     }
 
     int beforeYou = 0;
@@ -215,6 +217,12 @@ public class TicketFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setNumberBeforeYou(Branch branch) {
         try {
+
+            if(customer.getCurrentQueueNumber() == null) {
+                removeTicket();
+                return;
+            }
+
 
             rootRef.child(BRANCH).child(branch.getBranchID()).child(customer.getCurrentQueueNumber()).child(CUSTOMER_ID_LIST).get()
                     .addOnSuccessListener(t->{
@@ -268,10 +276,11 @@ public class TicketFragment extends Fragment {
             {
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
-                    getParentFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.nav_host_fragment,new CompanyFragment())
-                            .commit();
+                    Navigation.findNavController(root).popBackStack();
+//                    getParentFragmentManager()
+//                            .beginTransaction()
+//                            .replace(R.id.nav_host_fragment,new CompanyFragment())
+//                            .commit();
                     return true;
                 }
                 return false;

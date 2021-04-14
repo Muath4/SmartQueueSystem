@@ -161,8 +161,6 @@ public class ManageQueueActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     protected void onStart() {
         super.onStart();

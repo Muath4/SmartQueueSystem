@@ -11,18 +11,24 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_company" >
         <action
-            android:id="@+id/action_signInFragment_to_usersFragment"
-            app:destination="@id/navigation_dashboard"
-            app:launchSingleTop="true"
-            app:popUpToInclusive="true" />
+            android:id="@+id/go_to_ticket"
+            app:destination="@id/navigation_ticket"
+            app:launchSingleTop="true"/>
 
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_ticket"
         android:name="com.example.myapplication.activities.customer.ui.ticket.TicketFragment"
         android:label="@string/title_ticket"
-        tools:layout="@layout/fragment_ticket" />
+        tools:layout="@layout/fragment_ticket" >
+        <action
+            android:id="@+id/go_to_home"
+            app:destination="@id/navigation_home"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"

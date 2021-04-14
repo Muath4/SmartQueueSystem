@@ -1,9 +1,6 @@
 package com.example.myapplication.activities.customer.ui.home;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.customer.CustomerInterfaceActivity;
-import com.example.myapplication.activities.customer.ui.ticket.TicketFragment;
 import com.example.myapplication.objects.Branch;
 import com.example.myapplication.objects.Customer;
 import com.google.firebase.auth.FirebaseAuth;
@@ -290,12 +284,18 @@ public class BranchDetailsFragment extends Fragment {
     }
 
     private void goToTicketFragment(){
-        getParentFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .setReorderingAllowed(true)
-                .replace(R.id.nav_host_fragment,new TicketFragment())
-                .commit();
+
+        FragmentManager fragmentManager = getParentFragmentManager();
+//            fragmentManager.popBackStack(fragmentManager.getBackStackEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fragmentManager.popBackStack(COMPANY_FRAGMENT,POP_BACK_STACK_INCLUSIVE);
+        Navigation.findNavController(root).navigate(R.id.go_to_ticket);
+
+//        getParentFragmentManager()
+//                .beginTransaction()
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+//                .setReorderingAllowed(true)
+//                .replace(R.id.nav_host_fragment,new TicketFragment())
+//                .commit();
     }
 
     private void backButtonBehavior() {
