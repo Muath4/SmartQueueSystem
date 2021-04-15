@@ -192,6 +192,9 @@ public class CompanyBranchesActivity extends AppCompatActivity {
         if(firebaseRecyclerAdapter != null)
             firebaseRecyclerAdapter.startListening();
 
+        if(FirebaseAuth.getInstance() == null)
+            startActivity(new Intent(this, LoginPageActivity.class));
+
     }
 
     @Override

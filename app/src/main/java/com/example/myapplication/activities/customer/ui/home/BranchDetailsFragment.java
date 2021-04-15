@@ -1,6 +1,7 @@
 package com.example.myapplication.activities.customer.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,28 +68,16 @@ public class BranchDetailsFragment extends Fragment {
     Branch branch;
     LinearLayout queue2Layout;
     TextView waitingTimeQueue1,waitingTimeQueue2;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public BranchDetailsFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment branchDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static BranchDetailsFragment newInstance(String param1, String param2) {
         BranchDetailsFragment fragment = new BranchDetailsFragment();
         Bundle args = new Bundle();
@@ -107,30 +96,7 @@ public class BranchDetailsFragment extends Fragment {
         }
 
 
-// This callback will only be called when MyFragment is at least Started.
-//        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-//            @Override
-//            public void handleOnBackPressed() {
-//                // Handle the back button event
-//                getParentFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.nav_host_fragment,new HomeFragment())
-//                        .commit();
-//            }
-//        };
-//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
-
     }
-
-    /*@Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("*****","onDestroy");
-        if(getParentFragmentManager().getBackStackEntryCount() != 0)
-            getParentFragmentManager().popBackStack();
-
-
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -249,12 +215,11 @@ public class BranchDetailsFragment extends Fragment {
                                         rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).get()
                                                 .addOnSuccessListener(tt->{
                                                     if(tt.getValue() == null)
-                                                        lastCustomerNumber = 0;
+                                                        lastCustomerNumber = 1;
                                                     else
                                                         lastCustomerNumber = tt.getValue(Integer.TYPE) + 1;
 
                                                     rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(LAST_CUSTOMER_NUMBER).setValue(lastCustomerNumber);
-
                                                     Map<String, Object> map = new HashMap<>();
                                                     map.put(String.valueOf(lastCustomerNumber+" _"),firebaseAuth.getUid());
                                                     rootRef.child(BRANCH).child(branch.getBranchID()).child(queueNumber).child(CUSTOMER_ID_LIST).updateChildren(map);

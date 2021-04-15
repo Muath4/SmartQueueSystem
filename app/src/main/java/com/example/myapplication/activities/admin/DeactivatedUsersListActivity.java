@@ -59,11 +59,11 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
     private final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     private Query query;
     private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deleted_users_list);
-//        progressBar = findViewById(R.id.loadingPanel_branches_company);
         numberOfDeletedUsers = findViewById(R.id.number_of_deleted_user);
         recyclerView = findViewById(R.id.deleted_user_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -78,15 +78,12 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
-
         if(firebaseCustomerRecyclerAdapter != null)
             firebaseCustomerRecyclerAdapter.startListening();
         if(firebaseCompanyRecyclerAdapter !=null)
             firebaseCompanyRecyclerAdapter.startListening();
-
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -97,8 +94,6 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
             firebaseCompanyRecyclerAdapter.stopListening();
 
     }
-
-
 
     private void setUserTypeCompany() {
         query = rootRef.child(COMPANY).orderByChild(ACTIVATED).equalTo(false);
@@ -147,6 +142,8 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
             }
 
         };
+
+
         recyclerView.setAdapter(firebaseCompanyRecyclerAdapter);
     }
 
@@ -200,10 +197,6 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
         recyclerView.setAdapter(firebaseCustomerRecyclerAdapter);
     }
 
-
-
-
-
     public static class CustomerHolder extends RecyclerView.ViewHolder{
         private TextView nameTextView,phoneTextView,emailTextView,completedTicketRatio;
         private Button activate;
@@ -256,7 +249,6 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
             logo = itemView.findViewById(R.id.logo_company_admin);
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.N)
         public void setCompany(Company company) {
             String name = company.getCompany_name();
             String email = company.getEmail();
@@ -276,7 +268,6 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
 
         }
         private void loadLogo(String userId) {
-            Log.d("%&#%",userId);
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference().child(COMPANY_LOGO).child(COMPANY_ID).child(userId);
 //        StorageReference storageRef = storage.getReferenceFromUrl("gs://smartqueuesystem-438.appspot.com/companyLogo/companyID/lyhNwrgRPEPhPqbXpDX8fdut6pl1");
@@ -296,7 +287,6 @@ public class DeactivatedUsersListActivity extends AppCompatActivity {
                 }
             });
         }
-        @RequiresApi(api = Build.VERSION_CODES.N)
         private void deactivateBranchesAndBranchAdmins(String userId, String type) {
             FirebaseDatabase.getInstance().getReference().child(type).orderByChild(COMPANY_ID).equalTo(userId).get()
                     .addOnSuccessListener(t2->{

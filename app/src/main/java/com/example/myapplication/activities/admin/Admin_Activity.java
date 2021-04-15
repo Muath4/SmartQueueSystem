@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.LoginPageActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -49,7 +50,13 @@ public class Admin_Activity extends AppCompatActivity {
             firebaseAuth.signOut();
             finish();
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(firebaseAuth == null)
+            startActivity(new Intent(this, LoginPageActivity.class));
     }
 
     /*private void setUsersNumbers() {

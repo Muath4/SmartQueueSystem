@@ -27,7 +27,7 @@ public class Queue implements Serializable {
         QueueID = queueID;
         BranchID = branchId;
         QueueName = queueName;
-        lastCustomerNumber = 0;
+        lastCustomerNumber = 1;
         queueRun = false;
         averageWaitingTime=0;
         timesTicketCompleted=0;

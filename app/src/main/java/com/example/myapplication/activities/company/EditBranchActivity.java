@@ -66,7 +66,6 @@ public class EditBranchActivity extends AppCompatActivity {
 
     private ImageButton locationIcon;
     int LAUNCH_SECOND_ACTIVITY = 1;
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +76,6 @@ public class EditBranchActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setupUIViews() {
 
         radioGroupQueue = findViewById(R.id.radio_group_queue_edit_branch);
@@ -153,7 +151,6 @@ public class EditBranchActivity extends AppCompatActivity {
         branchReference = Root.getReferenceFromUrl(getIntent().getExtras().getString(BRANCH));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setDeleteBranchButton() {
         progressBar.setVisibility(View.VISIBLE);
         deleteCustomerInsideQueue();
@@ -177,7 +174,6 @@ public class EditBranchActivity extends AppCompatActivity {
                 .addOnFailureListener(t2 -> Toast.makeText(getApplicationContext(),t2.getMessage(),Toast.LENGTH_SHORT).show());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void deleteCustomerInsideQueue() {
         branchReference.get().addOnSuccessListener(t->{
             Branch branch = t.getValue(Branch.class);
@@ -187,7 +183,6 @@ public class EditBranchActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void deleteCustomerInOneQueue(String queueNumber) {
         Log.d("#$%@EW","deleteCustomerInOneQueue");
 //        Map<String, Object> deactivateBranchAdmin = new HashMap<>();
@@ -247,22 +242,3 @@ public class EditBranchActivity extends AppCompatActivity {
     }
 }
 
-
-
-
-/** IMPORTANT below code to get an object from firebase **/
-        /*branchReference.get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
-                finish();
-                Log.e("firebase", "Error getting data", task.getException());
-            }
-            else {
-                try {
-                    branchFromRef = task.getResult().getValue(Branch.class);
-                }catch (Exception e){
-                    Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
-                    finish(); //// I should make sure how this is work
-                }
-            }
-        });*/
