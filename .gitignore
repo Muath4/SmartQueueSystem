@@ -461,3 +461,4 @@ lint/tmp/
 /.idea/shelf/Uncommitted_changes_before_Update_at_4_1_2021_6_02_PM_[Default_Changelist]/values_values.arsc.flat
 /.idea/shelf/Uncommitted_changes_before_rebase_[Default_Changelist]/xml_root_preferences.xml.flat
 /.idea/shelf/Uncommitted_changes_before_Update_at_4_1_2021_6_02_PM_[Default_Changelist]/xml_root_preferences.xml.flat
+/app/src/main/res/values/keys.xml
