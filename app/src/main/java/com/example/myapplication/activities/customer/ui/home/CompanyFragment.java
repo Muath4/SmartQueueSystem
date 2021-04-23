@@ -1,5 +1,6 @@
 package com.example.myapplication.activities.customer.ui.home;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -27,11 +28,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.LoginPageActivity;
 import com.example.myapplication.objects.Company;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -82,6 +85,12 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
         if(fragmentManager.getBackStackEntryCount()!=0) {
             fragmentManager.popBackStack(fragmentManager.getBackStackEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+
+
+
+            if(FirebaseAuth.getInstance() == null)
+                startActivity(new Intent(getActivity(), LoginPageActivity.class));
+
 
     }
 

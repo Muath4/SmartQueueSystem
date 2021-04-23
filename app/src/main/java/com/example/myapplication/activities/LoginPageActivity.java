@@ -82,8 +82,8 @@ public class LoginPageActivity extends AppCompatActivity {
     }
     private void checkEmailVerification(){
 
-        if(!fAuth.getCurrentUser().isEmailVerified())
-            Toast.makeText(getApplicationContext(), getString(R.string.email_not_verified),Toast.LENGTH_SHORT).show();
+//        if(!fAuth.getCurrentUser().isEmailVerified())
+//            Toast.makeText(getApplicationContext(), getString(R.string.email_not_verified),Toast.LENGTH_SHORT).show();
 
     }
 

@@ -67,7 +67,7 @@ public class ManageQueueActivity extends AppCompatActivity {
     private String queueNumber,queueName,queueId;
     private Button callNext, statusQueueButton, resetQueueButton;
     private String firstCustomerId;
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +87,6 @@ public class ManageQueueActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setViews() {
         progressBar = findViewById(R.id.progress_bar_manage_queue);
         numberInQueue = findViewById(R.id.number_in_queue);
@@ -111,7 +110,6 @@ public class ManageQueueActivity extends AppCompatActivity {
                 });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void resetQueue() {
         BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).removeValue();
         CustomerReference.orderByChild(CURRENT_BRANCH_ID).equalTo(branchId).get().addOnSuccessListener(t->{
@@ -121,14 +119,18 @@ public class ManageQueueActivity extends AppCompatActivity {
                if(t2.getValue()==null)
                    return;
                String customerId = t2.getValue(Customer.class).getUserId();
-               CustomerReference.child(customerId).child(CURRENT_BRANCH_ID).removeValue();
-               CustomerReference.child(customerId).child(CURRENT_QUEUE_ID).removeValue();
-               CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();
-               CustomerReference.child(customerId).child(NUMBER_IN_QUEUE).removeValue();
-               CustomerReference.child(customerId).child(TIME_TICKET_BOOKED).removeValue();
+               removeTicket(customerId);
            });
         });
 
+    }
+
+    private void removeTicket(String customerId) {
+        CustomerReference.child(customerId).child(CURRENT_BRANCH_ID).removeValue();
+        CustomerReference.child(customerId).child(CURRENT_QUEUE_ID).removeValue();
+        CustomerReference.child(customerId).child(CURRENT_QUEUE_NUMBER).removeValue();
+        CustomerReference.child(customerId).child(NUMBER_IN_QUEUE).removeValue();
+        CustomerReference.child(customerId).child(TIME_TICKET_BOOKED).removeValue();
     }
 
     private void setTimesTicketCanceled(int childrenCount) {
@@ -182,19 +184,7 @@ public class ManageQueueActivity extends AppCompatActivity {
     }
 
     private void loadingCustomerInQueue() {
-//        if(firebaseAuth.getCurrentUser() == null){
-//            startActivity(new Intent(this, LoginPageActivity.class));
-//            return;
-//        }
-
-
-
-//        BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST).get()
-//                .addOnSuccessListener(t-> t.getChildren().forEach(t2->Log.d("***",t2.getKey().toString())) );
         Query query = BranchReference.child(branchId).child(queueNumber).child(CUSTOMER_ID_LIST);
-
-//        BranchReference.child(branchId).child(queueNumber).get().addOnSuccessListener(t->Log.d("$#@%@",String.valueOf(t.getValue())));
-
 
         RecyclerView recyclerView = findViewById(R.id.customer_list_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -283,17 +273,17 @@ public class ManageQueueActivity extends AppCompatActivity {
                     .addOnSuccessListener(t->{
                         Customer customer = t.getValue(Customer.class);
                         specificCustomerCompletedImage.setOnClickListener(t3->callNextCustomer(customer.getUserId()));
-            String customerPhone = String.valueOf(customer.getPhoneNumber());
-            String CustomerName = customer.getUsername();
-            phone.setText(customerPhone);
-            name.setText(String.valueOf(CustomerName));
-            call.setOnClickListener(t2->{
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:"+customer.getPhoneNumber()));
-                startActivity(callIntent);
-            });
-//            remove.setOnClickListener(t->callNextCustomer(customer.getUserId()));
-            notification.setOnClickListener(t3->sendNotification(customer.getUserId()));
+                        String customerPhone = String.valueOf(customer.getPhoneNumber());
+                        String CustomerName = customer.getUsername();
+                        phone.setText(customerPhone);
+                        name.setText(String.valueOf(CustomerName));
+                        call.setOnClickListener(t2->{
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                            callIntent.setData(Uri.parse("tel:"+customer.getPhoneNumber()));
+                            startActivity(callIntent);
+                        });
+//                        remove.setOnClickListener(t->callNextCustomer(customer.getUserId()));
+                        notification.setOnClickListener(t3->sendNotification(customer.getUserId()));
                     });
         }
     }
